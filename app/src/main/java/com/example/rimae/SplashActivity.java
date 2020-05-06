@@ -16,13 +16,13 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                showMainActivity();
+                showLogin();
             }
         }, 2000);
     }
-    private void showMainActivity() {
+    private void showLogin() {
         Intent intent = new Intent(
-                SplashActivity.this,MainActivity.class
+                SplashActivity.this,BeforeLoginActivity.class
         );
         startActivity(intent);
         finish();
