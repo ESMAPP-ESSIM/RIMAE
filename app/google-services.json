@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "800724580961",
+    "firebase_url": "https://rimae-8e216.firebaseio.com",
+    "project_id": "rimae-8e216",
+    "storage_bucket": "rimae-8e216.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800724580961:android:30757146fdec7f0e3e8820",
+        "android_client_info": {
+          "package_name": "com.example.rimae"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800724580961-2is3vjt9jfn6od3qtrsdp5vcnraup31l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6pybZt7iTof084YWbRDm0e-DDOdPnDKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800724580961-2is3vjt9jfn6od3qtrsdp5vcnraup31l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

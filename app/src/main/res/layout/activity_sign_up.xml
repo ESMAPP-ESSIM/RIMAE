@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:fontFamily="@font/choplin_medium"
-        android:text="Login"
+        android:text="Registar"
         android:textColor="#FFFFFF"
         android:textSize="33sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,8 +42,28 @@
         android:layout_width="250sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50sp"
+        android:drawableRight="@drawable/ic_markunread_24px"
         android:fontFamily="@font/montserrat_medium"
         android:hint="Email"
+        android:inputType="textWebEmailAddress"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="25sp"
+        app:backgroundTint="#FFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textView2"></EditText>
+    <EditText
+        android:id="@+id/nameInp"
+        android:layout_width="250sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:hint="Nome"
         android:textColor="#FFFFFF"
         android:textColorHighlight="#FFFFFF"
         android:textColorHint="#FFFFFF"
@@ -55,8 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textView2"></EditText>
-
+        app:layout_constraintTop_toTopOf="@id/emailInp"></EditText>
     <EditText
         android:id="@+id/pwInp"
         android:layout_width="250sp"
@@ -77,25 +96,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/nameInp"></EditText>
-    <EditText
-        android:id="@+id/nameInp"
-        android:layout_width="250sp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:hint="Nome"
-        android:textColor="#FFFFFF"
-        android:textColorHighlight="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textSize="25sp"
-        android:drawableRight="@drawable/ic_markunread_24px"
-        android:paddingLeft="10sp"
-        android:paddingRight="10sp"
-        app:backgroundTint="#FFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/emailInp"></EditText>
+
 
     <EditText
         android:id="@+id/cpwInp"
