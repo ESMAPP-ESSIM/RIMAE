@@ -28,6 +28,18 @@ public class MainActivity extends AppCompatActivity {
         interviews = new ArrayList<Interview>();
         interviews.add(
                 new Interview("Master Of Puppets", "Metallica","23:52", R.drawable.picture1));
+        interviews.add(
+                new Interview("Master Of Puppets", "Metallica","23:52", R.drawable.picture1));
+        interviews.add(
+                new Interview("Master Of Puppets", "Metallica","23:52", R.drawable.picture1));
+        interviews.add(
+                new Interview("Master Of Puppets", "Metallica","23:52", R.drawable.picture1));
+        interviews.add(
+                new Interview("Master Of Puppets", "Metallica","23:52", R.drawable.picture1));
+        interviews.add(
+                new Interview("Master Of Puppets", "Metallica","23:52", R.drawable.picture1));
+        interviews.add(
+                new Interview("Master Of Puppets", "Metallica","23:52", R.drawable.picture1));
 
        interviewAdapter = new MyAdapterRecycler(interviews);
         rInterview.setAdapter(interviewAdapter);
