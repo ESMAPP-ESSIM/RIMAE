@@ -7,41 +7,11 @@
     android:background="@drawable/login_screen"
     tools:context=".SignUpActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="RIMAE"
-        android:fontFamily="@font/choplin_medium"
-        android:textColor="#FFFFFF"
-        android:textSize="80sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        tools:targetApi="o" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:fontFamily="@font/choplin_medium"
-        android:text="Registar"
-        android:textColor="#FFFFFF"
-        android:textSize="33sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textView"
-        app:layout_constraintHorizontal_bias="0.5"
-        tools:targetApi="o" />
-
     <EditText
         android:id="@+id/emailInp"
         android:layout_width="250sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50sp"
+        android:layout_marginTop="300dp"
         android:drawableRight="@drawable/ic_markunread_24px"
         android:fontFamily="@font/montserrat_medium"
         android:hint="Email"
@@ -56,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textView2"></EditText>
+        app:layout_constraintTop_toTopOf="parent"></EditText>
     <EditText
         android:id="@+id/nameInp"
         android:layout_width="250sp"
@@ -98,48 +68,28 @@
         app:layout_constraintTop_toTopOf="@id/nameInp"></EditText>
 
 
-    <EditText
-        android:id="@+id/cpwInp"
-        android:layout_width="250sp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:drawableRight="@drawable/ativo1"
-        android:fontFamily="@font/montserrat_medium"
-        android:hint="Password"
-        android:inputType="textWebPassword"
-        android:paddingLeft="10sp"
-        android:paddingRight="10sp"
-        android:textColor="#FFFFFF"
-        android:textColorHighlight="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textSize="25sp"
-        app:backgroundTint="#FFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/pwInp"></EditText>
-
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="110dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="253dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="14dp"
         android:background="@drawable/rounded_orange_button"
         android:fontFamily="@font/montserrat_medium"
         android:onClick="login"
         android:text="REGISTAR"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintHorizontal_bias="0.498"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cpwInp"
+        app:layout_constraintTop_toBottomOf="@+id/pwInp"
         tools:text="REGISTAR" />
 
     <Button
         android:id="@+id/signButton"
-        android:layout_width="110dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="256dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/rounded_white_button"
         android:fontFamily="@font/montserrat_medium"
         android:onClick="back"
@@ -148,8 +98,34 @@
         android:textColor="#FC7753"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/cpwInp"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
         tools:text="Cancelar" />
+
+    <Button
+        android:id="@+id/photo_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="110dp"
+        android:height="150dp"
+        android:background="@drawable/circle_button"
+        android:onClick="selectPhoto"
+        android:text="Foto de Perfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/selected_photo_prev"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="110dp"
+        android:height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:civ_border_width="5px"
+        app:civ_border_color="#fff"
+        ></de.hdodenhof.circleimageview.CircleImageView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -51,6 +51,7 @@
        android:paddingLeft="10sp"
         android:paddingRight="10sp"
         app:backgroundTint="#FFF"
+        android:inputType="textWebEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
