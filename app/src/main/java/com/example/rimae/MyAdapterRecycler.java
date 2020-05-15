@@ -1,62 +1,73 @@
 package com.example.rimae;
 
+import android.annotation.SuppressLint;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-//Usar FireStoreReciclerView
-public class MyAdapterRecycler extends RecyclerView.Adapter<MyAdapterRecycler.ViewHolder> {
+public class MyAdapterRecycler extends  FirestoreRecyclerAdapter<Interview,MyAdapterRecycler.InterviewHolder>
+{
 
-    public class ViewHolder extends  RecyclerView.ViewHolder{
+    public MyAdapterRecycler(@NonNull FirestoreRecyclerOptions<Interview> options) {
+        super(options);
+    }
 
-        protected TextView interviewTitle, interviewName,interviewTime;
-        protected ImageView imgCover;
+    @SuppressLint("NewApi")
+    @Override
+    protected void onBindViewHolder(@NonNull InterviewHolder holder, int position, @NonNull Interview model) {
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            interviewTitle = itemView.findViewById(R.id.titulo);
-            interviewName= itemView.findViewById(R.id.nome);
-            interviewTime= itemView.findViewById(R.id.time);
-            imgCover = itemView.findViewById(R.id.pic);
+
+        DocumentSnapshot doc= getSnapshots().getSnapshot(position);
+        String id= doc.getId();
+        Log.d("Query","ID:"+id);
+        if(id.equals("hIO7P9KnDkqAYerOjOg5")){
+            Log.d("Query", "Este não mostra");
+            holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
+        }else{
+            holder.txtTitle.setText(model.getTitle());
+            holder.txtName.setText(model.getName());
+            holder.txtTime.setText(model.getTime());
+            Picasso.get().load(model.getProfile_pic()).fit().centerCrop().into(holder.imgCover);
         }
     }
 
-    private ArrayList<Interview> myInterviewList;
-    public MyAdapterRecycler(ArrayList<Interview> myInterviewList) {
-        this.myInterviewList = myInterviewList;
-    }
-
-
     @NonNull
     @Override
-    public MyAdapterRecycler.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview, viewGroup, false);
-        return new ViewHolder(itemView);
+    public InterviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview, parent, false);
+
+        return new InterviewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull MyAdapterRecycler.ViewHolder holder, int position) {
-        Interview item = myInterviewList.get(position);
-        holder.interviewName.setText(item.getInterviewName());
-        holder.interviewTitle.setText(item.getInterviewTitle());
-        holder.interviewTime.setText(item.getInterviewTime());
-        holder.imgCover.setImageResource(item.getPictur());
+    class InterviewHolder extends RecyclerView.ViewHolder {
+        TextView txtTitle, txtName,txtTime;
+        ImageView imgCover;
 
+        public InterviewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            txtTitle = itemView.findViewById(R.id.titulo);
+            txtName = itemView.findViewById(R.id.nome);
+            txtTime = itemView.findViewById(R.id.time);
+            imgCover = itemView.findViewById(R.id.pic);
+
+
+        }
     }
-
-    @Override
-    public int getItemCount() {
-        return myInterviewList.size();
-    }
-
-
 }
 

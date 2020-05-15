@@ -1,45 +1,48 @@
 package com.example.rimae;
 
+import com.google.firebase.firestore.SnapshotMetadata;
+
 public class Interview {
-    private String interviewName,interviewTitle,interviewTime;
-    private  int pictur;
+    private String name,title,time,profile_pic;
 
-    public Interview(String interviewName, String interviewTitle,String interviewTime, int pictur){
-        this.interviewName=interviewName;
-        this.interviewTitle=interviewTitle;
-        this.interviewTime=interviewTime;
-        this.pictur=pictur;
+    public Interview(){}
+
+    public Interview(String name, String title,String time, String profile_pic ){
+        this.name= name;
+        this.title=title;
+        this.time=time;
+        this.profile_pic=profile_pic;
     }
 
-    public int getPictur() {
-        return pictur;
+    public String getProfile_pic() {
+        return profile_pic;
     }
 
-    public String getInterviewName() {
-        return interviewName;
+    public String getName() {
+        return name;
     }
 
-    public String getInterviewTime() {
-        return interviewTime;
+    public String getTime() {
+        return time;
     }
 
-    public String getInterviewTitle() {
-        return interviewTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setInterviewName(String interviewName) {
-        this.interviewName = interviewName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setInterviewTime(String interviewTime) {
-        this.interviewTime = interviewTime;
+    public void setTime(String interviewTime) {
+        this.time = interviewTime;
     }
 
-    public void setInterviewTitle(String interviewTitle) {
-        this.interviewTitle = interviewTitle;
+    public void setTitle(String interviewTitle) {
+        this.title = interviewTitle;
     }
 
-    public void setPictur(int pictur) {
-        this.pictur = pictur;
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
     }
 }
