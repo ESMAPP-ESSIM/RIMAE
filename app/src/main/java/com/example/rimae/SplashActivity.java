@@ -14,37 +14,37 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
         String uid = FirebaseAuth.getInstance().getUid();
         Handler handler = new Handler();
 
-        if(uid==null){
+        if (uid == null){
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     showLogin();
                 }
             }, 2000);
-        }else{
+        } else {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     goToHome();
                 }
             }, 2000);
-
         }
 
     }
     private void showLogin() {
-        Intent intent = new Intent(
-                SplashActivity.this,BeforeLoginActivity.class
-        );
+        Intent intent = new Intent(SplashActivity.this, BeforeLoginActivity.class);
+
         startActivity(intent);
         finish();
     }
 
     private void goToHome(){
-        Intent intent = new Intent(SplashActivity.this,MainActivity.class);
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+
         startActivity(intent);
         finish();
     }

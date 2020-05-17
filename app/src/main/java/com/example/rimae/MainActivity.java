@@ -28,15 +28,19 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView rInterview;
     MyAdapterRecycler adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       rInterview=findViewById(R.id.rEntrevistas);
-        Query query= db.collection("trainings");
 
-        Log.d("Query","Query"+query.toString());
-        FirestoreRecyclerOptions<Interview> options= new FirestoreRecyclerOptions.Builder<Interview>()
+        rInterview = findViewById(R.id.rEntrevistas);
+
+        Query query = db.collection("trainings");
+
+        Log.d("Query","Query" + query.toString());
+
+        FirestoreRecyclerOptions<Interview> options = new FirestoreRecyclerOptions.Builder<Interview>()
                 .setQuery(query,Interview.class).build();
 
         adapter = new MyAdapterRecycler(options);

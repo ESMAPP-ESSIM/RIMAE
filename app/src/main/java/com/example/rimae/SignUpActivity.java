@@ -46,45 +46,48 @@ public class SignUpActivity extends AppCompatActivity {
     private Uri selectedPhotoUri;
     private StorageReference mStorageRef;
     private String uid;
-
     private CircleImageView imgPrev;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
         mAuth = FirebaseAuth.getInstance();
 
-        //Get email name and password
-        emailInp=findViewById(R.id.emailInp);
-        nameInp=findViewById(R.id.nameInp);
-        pwInp=findViewById(R.id.pwInp);
-        selectphoto=findViewById(R.id.photo_button);
+        //Get email, name, password and photo
+        emailInp = findViewById(R.id.emailInp);
+        nameInp = findViewById(R.id.nameInp);
+        pwInp = findViewById(R.id.pwInp);
+        selectphoto = findViewById(R.id.photo_button);
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        imgPrev=findViewById(R.id.selected_photo_prev);
+        imgPrev = findViewById(R.id.selected_photo_prev);
     }
 
     public void selectPhoto(View view){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
-    startActivityForResult(intent,0);
+
+        startActivityForResult(intent,0);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==0 && resultCode==Activity.RESULT_OK){
+        if(requestCode == 0 && resultCode == Activity.RESULT_OK){
             Log.d("FOTO","foto selecionada");
 
-            selectedPhotoUri= data.getData();
+            selectedPhotoUri = data.getData();
 
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),selectedPhotoUri);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedPhotoUri);
 
                 //selectphoto.setBackgroundDrawable(new BitmapDrawable(bitmap));
 
                 imgPrev.setImageBitmap(bitmap);
                 selectphoto.setAlpha(0f);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -93,11 +96,10 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void login(View view){
         //get the strings
+        String email = emailInp.getText().toString();
+        String pw = pwInp.getText().toString();
 
-        String email=emailInp.getText().toString();
-        String pw= pwInp.getText().toString();
-
-        if(TextUtils.isEmpty(email)||TextUtils.isEmpty(pw)){
+        if(TextUtils.isEmpty(email) || TextUtils.isEmpty(pw)){
             Toast.makeText(this, "Please Fill all the fields", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -105,37 +107,37 @@ public class SignUpActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     Log.d("Sign",task.toString());
+
                     if(task.isSuccessful()){
                         FirebaseUser user = mAuth.getCurrentUser();
-                        uid=user.getUid();
+                        uid = user.getUid();
+
                         uploadImageToStorage();
                         updateUI();
-                    }else{
-                        Toast.makeText(SignUpActivity.this,"Unable To Create Account",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(SignUpActivity.this,"Unable To Create Account", Toast.LENGTH_LONG).show();
                     }
                 }
             });
-
-
     }
 
     private void uploadImageToStorage() {
         String filename = UUID.randomUUID().toString();
 
-        final StorageReference imagesRef= mStorageRef.child("images/"+filename);
+        final StorageReference imagesRef = mStorageRef.child("images/" + filename);
 
         imagesRef.putFile(selectedPhotoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 //Uri imageUri = taskSnapshot.getMetadata();
                 Log.d("Register","Successfully uploaded"+taskSnapshot.getMetadata().getPath());
+
                 taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
                         Log.d("Register","File Located at: "+ uri.toString());
 
                         saveUserToFirebase(uri.toString());
-
                     }
                 });
             }
@@ -143,14 +145,14 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void saveUserToFirebase(String uri) {
-        Log.d("Register","User uid: "+uid);
+        Log.d("Register","User uid: " + uid);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String,Object> user = new HashMap<>();
 
-        user.put("name",nameInp.getText().toString());
-        user.put("email",emailInp.getText().toString());
-        user.put("profile_pic",uri);
-        user.put("points",0);
+        user.put("name", nameInp.getText().toString());
+        user.put("email", emailInp.getText().toString());
+        user.put("profile_pic", uri);
+        user.put("points", 0);
 
         db.collection("users").document(uid).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -167,13 +169,15 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void back(View view){
-        Intent intent=new Intent(this,BeforeLoginActivity.class);
+        Intent intent = new Intent(this, BeforeLoginActivity.class);
+
         startActivity(intent);
         finish();
     }
 
     private void updateUI(){
-        Intent intent=new Intent(SignUpActivity.this,MainActivity.class);
+        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+
         startActivity(intent);
         finish();
     }

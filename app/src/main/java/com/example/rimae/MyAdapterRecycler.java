@@ -18,8 +18,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
-public class MyAdapterRecycler extends  FirestoreRecyclerAdapter<Interview,MyAdapterRecycler.InterviewHolder>
-{
+public class MyAdapterRecycler extends FirestoreRecyclerAdapter<Interview,MyAdapterRecycler.InterviewHolder> {
 
     public MyAdapterRecycler(@NonNull FirestoreRecyclerOptions<Interview> options) {
         super(options);
@@ -28,16 +27,17 @@ public class MyAdapterRecycler extends  FirestoreRecyclerAdapter<Interview,MyAda
     @SuppressLint("NewApi")
     @Override
     protected void onBindViewHolder(@NonNull InterviewHolder holder, int position, @NonNull Interview model) {
+        DocumentSnapshot doc = getSnapshots().getSnapshot(position);
+        String id = doc.getId();
 
+        Log.d("Query","ID:" + id);
 
-        DocumentSnapshot doc= getSnapshots().getSnapshot(position);
-        String id= doc.getId();
-        Log.d("Query","ID:"+id);
-        if(id.equals("hIO7P9KnDkqAYerOjOg5")){
+        if (id.equals("hIO7P9KnDkqAYerOjOg5")) {
             Log.d("Query", "Este não mostra");
+
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
-        }else{
+        } else {
             holder.txtTitle.setText(model.getTitle());
             holder.txtName.setText(model.getName());
             holder.txtTime.setText(model.getTime());
@@ -48,7 +48,6 @@ public class MyAdapterRecycler extends  FirestoreRecyclerAdapter<Interview,MyAda
     @NonNull
     @Override
     public InterviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview, parent, false);
 
         return new InterviewHolder(view);
@@ -65,8 +64,6 @@ public class MyAdapterRecycler extends  FirestoreRecyclerAdapter<Interview,MyAda
             txtName = itemView.findViewById(R.id.nome);
             txtTime = itemView.findViewById(R.id.time);
             imgCover = itemView.findViewById(R.id.pic);
-
-
         }
     }
 }

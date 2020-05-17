@@ -3,15 +3,15 @@ package com.example.rimae;
 import com.google.firebase.firestore.SnapshotMetadata;
 
 public class Interview {
-    private String name,title,time,profile_pic;
+    private String name, title, time, profile_pic;
 
-    public Interview(){}
+    public Interview() {}
 
-    public Interview(String name, String title,String time, String profile_pic ){
-        this.name= name;
-        this.title=title;
-        this.time=time;
-        this.profile_pic=profile_pic;
+    public Interview(String name, String title, String time, String profile_pic) {
+        this.name = name;
+        this.title = title;
+        this.time = time;
+        this.profile_pic = profile_pic;
     }
 
     public String getProfile_pic() {
