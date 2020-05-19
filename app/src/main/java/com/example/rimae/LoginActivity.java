@@ -24,35 +24,40 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
+
         mAuth = FirebaseAuth.getInstance();
-        emailInp=findViewById(R.id.emailInp);
-        pwInp=findViewById(R.id.pwInp);
+        emailInp = findViewById(R.id.emailInp);
+        pwInp = findViewById(R.id.pwInp);
     }
 
     public void login(View view){
-        String email=emailInp.getText().toString();
-        String pw=pwInp.getText().toString();
-        mAuth.signInWithEmailAndPassword(email,pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        String email = emailInp.getText().toString();
+        String pw = pwInp.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email, pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-
+                if (task.isSuccessful()) {
                     //Enviar o user loggado para a proxima activity
-                    FirebaseUser user= mAuth.getCurrentUser();
-                    Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                    intent.putExtra("userInfo",user);
+                    FirebaseUser user = mAuth.getCurrentUser();
+
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("userInfo", user);
+
                     startActivity(intent);
                     finish();
-                }else{
-                    Toast.makeText(LoginActivity.this,"Authentication failed",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(LoginActivity.this,"Authentication failed", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
 
     public void back(View view){
-        Intent intent=new Intent(this,BeforeLoginActivity.class);
+        Intent intent = new Intent(this, BeforeLoginActivity.class);
+
         startActivity(intent);
         finish();
     }

@@ -16,8 +16,12 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
+<<<<<<< HEAD:app/src/main/java/com/example/rimae/recyclers/HomePageRecycler.java
 public class HomePageRecycler extends  FirestoreRecyclerAdapter<Training, HomePageRecycler.InterviewHolder>
 {
+=======
+public class MyAdapterRecycler extends FirestoreRecyclerAdapter<Interview,MyAdapterRecycler.InterviewHolder> {
+>>>>>>> 2ee09a91a575a84fd909cd202a9eddd004abfc76:app/src/main/java/com/example/rimae/MyAdapterRecycler.java
 
     public HomePageRecycler(@NonNull FirestoreRecyclerOptions<Training> options) {
         super(options);
@@ -25,7 +29,22 @@ public class HomePageRecycler extends  FirestoreRecyclerAdapter<Training, HomePa
 
     @SuppressLint("NewApi")
     @Override
+<<<<<<< HEAD:app/src/main/java/com/example/rimae/recyclers/HomePageRecycler.java
     protected void onBindViewHolder(@NonNull InterviewHolder holder, int position, @NonNull Training model) {
+=======
+    protected void onBindViewHolder(@NonNull InterviewHolder holder, int position, @NonNull Interview model) {
+        DocumentSnapshot doc = getSnapshots().getSnapshot(position);
+        String id = doc.getId();
+
+        Log.d("Query","ID:" + id);
+
+        if (id.equals("hIO7P9KnDkqAYerOjOg5")) {
+            Log.d("Query", "Este não mostra");
+
+            holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
+        } else {
+>>>>>>> 2ee09a91a575a84fd909cd202a9eddd004abfc76:app/src/main/java/com/example/rimae/MyAdapterRecycler.java
             holder.txtTitle.setText(model.getTitle());
             holder.txtName.setText(model.getName());
             holder.txtTime.setText(model.getTime());
@@ -35,7 +54,6 @@ public class HomePageRecycler extends  FirestoreRecyclerAdapter<Training, HomePa
     @NonNull
     @Override
     public InterviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview, parent, false);
 
         return new InterviewHolder(view);
@@ -52,8 +70,6 @@ public class HomePageRecycler extends  FirestoreRecyclerAdapter<Training, HomePa
             txtName = itemView.findViewById(R.id.nome);
             txtTime = itemView.findViewById(R.id.time);
             imgCover = itemView.findViewById(R.id.pic);
-
-
         }
     }
 }
