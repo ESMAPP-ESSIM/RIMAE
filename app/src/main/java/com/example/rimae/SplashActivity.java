@@ -17,7 +17,8 @@ public class SplashActivity extends AppCompatActivity {
         String uid = FirebaseAuth.getInstance().getUid();
         Handler handler = new Handler();
 
-        if(uid==null){
+        /*
+        * if(uid==null){
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -33,7 +34,14 @@ public class SplashActivity extends AppCompatActivity {
             }, 2000);
 
         }
-
+        *
+        * */
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showLogin();
+            }
+        }, 2000);
     }
     private void showLogin() {
         Intent intent = new Intent(

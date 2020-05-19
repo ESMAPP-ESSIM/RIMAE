@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -31,7 +30,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -66,7 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void selectPhoto(View view){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
-    startActivityForResult(intent,0);
+        startActivityForResult(intent,0);
     }
 
     @Override
@@ -74,15 +72,9 @@ public class SignUpActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==0 && resultCode==Activity.RESULT_OK){
-            Log.d("FOTO","foto selecionada");
-
             selectedPhotoUri= data.getData();
-
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),selectedPhotoUri);
-
-                //selectphoto.setBackgroundDrawable(new BitmapDrawable(bitmap));
-
                 imgPrev.setImageBitmap(bitmap);
                 selectphoto.setAlpha(0f);
             } catch (IOException e) {
@@ -96,11 +88,12 @@ public class SignUpActivity extends AppCompatActivity {
 
         String email=emailInp.getText().toString();
         String pw= pwInp.getText().toString();
+    String name = nameInp.getText().toString();
 
-        if(TextUtils.isEmpty(email)||TextUtils.isEmpty(pw)){
+        if(TextUtils.isEmpty(email)||TextUtils.isEmpty(pw) || TextUtils.isEmpty(name)){
             Toast.makeText(this, "Please Fill all the fields", Toast.LENGTH_SHORT).show();
             return;
-        }
+        }else{
             mAuth.createUserWithEmailAndPassword(email, pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -108,14 +101,19 @@ public class SignUpActivity extends AppCompatActivity {
                     if(task.isSuccessful()){
                         FirebaseUser user = mAuth.getCurrentUser();
                         uid=user.getUid();
-                        uploadImageToStorage();
+
+                        if(imgPrev.getDrawable()==null){
+                            saveUserToFirebase("http://www.coffeebrain.org/wiki/images/9/93/PEOPLE-NoFoto.JPG");
+                        }else{
+                            uploadImageToStorage();
+                        }
                         updateUI();
                     }else{
                         Toast.makeText(SignUpActivity.this,"Unable To Create Account",Toast.LENGTH_LONG).show();
                     }
                 }
             });
-
+        }
 
     }
 
@@ -127,19 +125,15 @@ public class SignUpActivity extends AppCompatActivity {
         imagesRef.putFile(selectedPhotoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                //Uri imageUri = taskSnapshot.getMetadata();
-                Log.d("Register","Successfully uploaded"+taskSnapshot.getMetadata().getPath());
                 taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Log.d("Register","File Located at: "+ uri.toString());
-
                         saveUserToFirebase(uri.toString());
-
                     }
                 });
             }
         });
+
     }
 
     private void saveUserToFirebase(String uri) {
