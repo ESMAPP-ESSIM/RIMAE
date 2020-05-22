@@ -167,7 +167,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void updateUI(){
-        Intent intent=new Intent(SignUpActivity.this,MainActivity.class);
+        Intent intent=new Intent(SignUpActivity.this,Main2Activity.class);
         startActivity(intent);
         finish();
     }

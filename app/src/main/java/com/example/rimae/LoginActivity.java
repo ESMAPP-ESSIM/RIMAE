@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                     //Enviar o user loggado para a proxima activity
                     FirebaseUser user = mAuth.getCurrentUser();
 
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
                     intent.putExtra("userInfo", user);
 
                     startActivity(intent);
