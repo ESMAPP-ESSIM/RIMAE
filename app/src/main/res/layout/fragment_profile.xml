@@ -54,14 +54,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="34dp"
-            android:paddingTop="5dp"
             android:clickable="false"
             android:fontFamily="@font/montserrat_medium"
             android:gravity="left"
+            android:paddingTop="5dp"
             android:text="Minhas Entrevistas"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColor="#000"
-            android:textSize="17sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -92,7 +92,7 @@
             android:fontFamily="@font/montserrat_medium"
             android:gravity="left"
             android:text="Estatísticas"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColor="#000"
             android:textSize="20sp" />
     </LinearLayout>
@@ -125,7 +125,7 @@
             android:fontFamily="@font/montserrat_medium"
             android:gravity="left"
             android:text="Definições"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColor="#000"
             android:textSize="20sp" />
     </LinearLayout>
@@ -159,7 +159,7 @@
             android:fontFamily="@font/montserrat_medium"
             android:gravity="left"
             android:text="Administrador"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColor="#000"
             android:textSize="20sp" />
     </LinearLayout>
@@ -192,7 +192,7 @@
             android:fontFamily="@font/montserrat_medium"
             android:gravity="left"
             android:text="Sair"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColor="#000"
             android:textSize="20sp" />
     </LinearLayout>
