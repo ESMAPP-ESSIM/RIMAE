@@ -102,6 +102,14 @@ public class DefinitionsActivity extends Fragment {
                 updatePassword();
             }
         });
+
+        Button back=root.findViewById(R.id.buttonBack);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goBack();
+            }
+        });
         return  root;
     }
 
@@ -191,7 +199,12 @@ public class DefinitionsActivity extends Fragment {
         fragmentTransaction.commit();
     }
 
-    /*public void goBack(View view){
-        finish();
-    }*/
+    public void goBack(){
+        ProfileFragment fragment2 = new ProfileFragment();
+        FragmentManager fragmentManager= getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment,fragment2);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 }
