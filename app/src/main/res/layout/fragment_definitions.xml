@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF"
-    tools:context=".DefinitionsActivity">
+    tools:context=".ui.profile.definitions.DefinitionsActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -24,7 +24,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/back_arrow"
-            android:onClick="goBack"></Button>
+        ></Button>
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,7 +47,6 @@
         android:layout_marginStart="120dp"
         android:layout_marginLeft="120dp"
         android:layout_marginTop="120dp"
-        android:onClick="changePhoto"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -83,7 +82,7 @@
         android:text="Guardar Alterações"
         android:textSize="20sp"
         android:padding="10dp"
-        android:onClick="save"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
 
@@ -100,7 +99,6 @@
         android:text="Mudar Password"
         android:textSize="20sp"
         android:padding="10dp"
-        android:onClick="updatePassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

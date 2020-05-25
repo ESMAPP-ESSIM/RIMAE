@@ -1,8 +1,10 @@
-package com.example.rimae;
+package com.example.rimae.ui.profile.definitions;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,11 +14,15 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.rimae.R;
 import com.example.rimae.ui.profile.ProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,7 +39,7 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.UUID;
 
-public class DefinitionsActivity extends AppCompatActivity {
+public class DefinitionsActivity extends Fragment {
 
     ImageView photo;
     EditText nameInput;
@@ -45,14 +51,18 @@ public class DefinitionsActivity extends AppCompatActivity {
     String email= FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_definitions);
-        photo=findViewById(R.id.changePhoto);
-        nameInput=findViewById(R.id.nameInput);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+       final View root = inflater.inflate(R.layout.fragment_definitions, container, false);
+
+        photo=root.findViewById(R.id.changePhoto);
+        nameInput=root.findViewById(R.id.nameInput);
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
-        //Ir buscar informação sobre o utilizador logged
+
+
+
+//Ir buscar informação sobre o utilizador logged
         db.collection("users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -61,30 +71,53 @@ public class DefinitionsActivity extends AppCompatActivity {
                     String uri=task.getResult().get("profile_pic").toString();
                     String name = task.getResult().get("name").toString();
                     currentName= name;
-                    Picasso.get().load(uri).fit().centerCrop().into(photo);
-                    nameInput.setText(name);
+                   Picasso.get().load(uri).fit().centerCrop().into(photo);
+                   nameInput.setText(name);
                 }else{
                     Log.w("Document",task.getException());
                 }
             }
         });
+        ImageView changePhoto= root.findViewById(R.id.changePhoto);
+        changePhoto.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                changePhoto();
+            }
+        });
 
+        Button saveChanges=root.findViewById(R.id.saveChangesButton);
+        saveChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save();
+            }
+        });
 
+        Button resetPassword=root.findViewById(R.id.changePassword);
+
+        resetPassword.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                updatePassword();
+            }
+        });
+        return  root;
     }
 
-    public void changePhoto(View view){
+    public void changePhoto(){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent,0);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==0 && resultCode== Activity.RESULT_OK){
             selectedPhotoUri= data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),selectedPhotoUri);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),selectedPhotoUri);
                 photo.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -92,7 +125,7 @@ public class DefinitionsActivity extends AppCompatActivity {
         }
     }
 
-    public  void save(View view){
+    public  void save(){
         String newName=nameInput.getText().toString();
 
         if(selectedPhotoUri==null){
@@ -113,20 +146,15 @@ public class DefinitionsActivity extends AppCompatActivity {
         updateUI();
     }
 
-    private  void updateUI(){
-        Intent intent=new Intent(this,Main2Activity.class);
-        intent.putExtra("Fragment","Profile");
-        startActivity(intent);
-        finish();
-    }
-    public void updatePassword(View view) {
+
+    public void updatePassword() {
         FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(DefinitionsActivity.this,"An email has been sent to you",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"An email has been sent to you",Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(DefinitionsActivity.this,"Failed to send you an email",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Failed to send you an email",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -154,9 +182,16 @@ public class DefinitionsActivity extends AppCompatActivity {
         });
     }
 
-
-
-    public void goBack(View view){
-        finish();
+    private  void updateUI(){
+        ProfileFragment fragment2 = new ProfileFragment();
+        FragmentManager fragmentManager= getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment,fragment2);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
+
+    /*public void goBack(View view){
+        finish();
+    }*/
 }

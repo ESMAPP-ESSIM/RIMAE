@@ -1,23 +1,22 @@
 package com.example.rimae.ui.profile;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.rimae.BeforeLoginActivity;
-import com.example.rimae.DefinitionsActivity;
+import com.example.rimae.ui.profile.definitions.DefinitionsActivity;
 import com.example.rimae.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -80,8 +79,12 @@ public class ProfileFragment extends Fragment {
     }
 
     public void goToSettings(){
-        Intent  intent = new Intent(getContext(), DefinitionsActivity.class);
-        startActivity(intent);
+        DefinitionsActivity fragment2= new DefinitionsActivity();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment,fragment2);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     public void goToStats(){}

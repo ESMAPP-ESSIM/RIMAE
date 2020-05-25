@@ -19,20 +19,9 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
-
-        Intent intent = getIntent();
-
-        if(intent.hasExtra("Fragment")){
-            if(intent.getStringExtra("Fragment").equals("Profile")){
-               navController.navigate(R.id.navigation_profile);
-            }
-        }else{
-            Log.d("Definições","Resulta sem Intent");
-        }
     }
 
 }
