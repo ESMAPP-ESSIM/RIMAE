@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardElevation="10dp"
+    app:cardUseCompatPadding="false"
+    app:contentPadding="3dp"
+    app:cardCornerRadius="20dp"
+    app:cardBackgroundColor="#F00"
+    >
+
+
+    <LinearLayout
+        android:id="@+id/markerInnerColor"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/marker_card_shape"
+>
+        <!--Substituir a color programaticamente a usar o PorterDuff - ver favoritos-->
+
+        <TextView
+            android:id="@+id/markerName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Comportamento Ético"
+            android:textColor="#E6000000"
+            android:textSize="26dp"
+            tools:text="Comportamento Ético" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

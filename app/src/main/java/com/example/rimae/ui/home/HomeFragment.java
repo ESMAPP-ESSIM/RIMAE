@@ -38,7 +38,7 @@ public class HomeFragment extends Fragment {
                 .setQuery(query, Training.class).build();
 
         adapter = new HomePageRecycler(options);
-        RecyclerView rInterview=root.findViewById(R.id.rEntrevistas);
+        RecyclerView rInterview=root.findViewById(R.id.rInterviews);
 
         rInterview.setHasFixedSize(true);
         rInterview.setLayoutManager(new LinearLayoutManager(getContext()));
