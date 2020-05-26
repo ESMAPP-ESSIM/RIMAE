@@ -31,6 +31,7 @@
         android:hint="Título"
         android:paddingLeft="10sp"
         android:paddingRight="10sp"
+        android:textAllCaps="false"
         android:textColor="#7E7E7E"
         android:textColorHighlight="#7E7E7E"
         android:textColorHint="#7E7E7E"
@@ -117,8 +118,8 @@
 
     <Button
         android:id="@+id/nextBtn"
-        android:layout_width="253dp"
-        android:layout_height="55dp"
+        android:layout_width="97dp"
+        android:layout_height="33dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/rounded_orange_button"
         android:fontFamily="@font/montserrat_medium"
