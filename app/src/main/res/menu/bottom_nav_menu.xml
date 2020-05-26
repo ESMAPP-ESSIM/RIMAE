@@ -7,7 +7,7 @@
         android:icon="@drawable/organizar"/>
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_create_interview"
         android:title="Add"
         android:icon="@drawable/add" />
 

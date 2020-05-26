@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.create_interview.CreateInterviewFragment">
+
+    <TextView
+        android:id="@+id/text_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center_horizontal" />
+
+
+    <EditText
+        android:id="@+id/interTitle"
+        android:layout_width="250sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:hint="Título"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:textColor="#7E7E7E"
+        android:textColorHighlight="#7E7E7E"
+        android:textColorHint="#7E7E7E"
+        android:textSize="25sp"
+        app:backgroundTint="#FFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></EditText>
+
+    <EditText
+        android:id="@+id/interDesc"
+        android:layout_width="250sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:hint="Descrição"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:textColor="#7E7E7E"
+        android:textColorHighlight="#7E7E7E"
+        android:textColorHint="#7E7E7E"
+        android:textSize="25sp"
+        app:backgroundTint="#FFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/interTitle"></EditText>
+
+    <EditText
+        android:id="@+id/interParti"
+        android:layout_width="250sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:hint="Participante"
+        android:inputType="textWebPassword"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:textColor="#7E7E7E"
+        android:textColorHighlight="#7E7E7E"
+        android:textColorHint="#7E7E7E"
+        android:textSize="25sp"
+        app:backgroundTint="#FFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/interDesc"></EditText>
+
+    <Button
+        android:id="@+id/publicBtn"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/right_shape_button"
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="10dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Privado"
+        android:textSize="15sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.662"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/interParti"
+        tools:text="Público" />
+
+    <Button
+        android:id="@+id/privateBtn"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/left_shape_button"
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="10dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Privado"
+        android:topRightRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/interParti"
+        tools:text="Privado" />
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="253dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rounded_orange_button"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Avançar"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/publicBtn"
+        tools:text="Avançar" />
+</androidx.constraintlayout.widget.ConstraintLayout>

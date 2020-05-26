@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "800724580961-33nej65h2j77prll87r0h1i99eodd5u3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rimae",
+            "certificate_hash": "7acefe3757cef2cc57eefc6a5e0b946cde44f806"
+          }
+        },
+        {
           "client_id": "800724580961-2is3vjt9jfn6od3qtrsdp5vcnraup31l.apps.googleusercontent.com",
           "client_type": 3
         }

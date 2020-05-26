@@ -11,9 +11,9 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.rimae.ui.dashboard.DashboardFragment"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_create_interview"
+        android:name="com.example.rimae.ui.create_interview.CreateInterviewFragment"
+        tools:layout="@layout/fragment_create_interview" />
 
     <fragment
         android:id="@+id/navigation_profile"
