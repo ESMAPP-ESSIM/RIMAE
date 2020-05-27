@@ -19,7 +19,7 @@
         android:layout_height="90dp"
         android:background="@drawable/marker_card_shape"
 >
-        <!--Substituir a color programaticamente a usar o PorterDuff - ver favoritos-->
+        <!--Substituir a color programaticamente a usar o PorterDuff->Documentação e stackoverflow 3ªResposta - ver favoritos-->
 
         <TextView
             android:id="@+id/markerName"

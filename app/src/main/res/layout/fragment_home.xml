@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="55dp"
         android:layout_marginEnd="55dp"
-
         tools:targetApi="o" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rInterviews"
