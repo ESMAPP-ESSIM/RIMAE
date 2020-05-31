@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rimae.Globals;
 import com.example.rimae.R;
 import com.example.rimae.models.Participant;
 import com.example.rimae.models.Training;
@@ -37,6 +39,7 @@ public class CreateInterviewFragment extends Fragment {
     EditText participantName;
     RecyclerView rParticipant;
     String searchFilter="";
+    String active="public";
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -59,6 +62,37 @@ public class CreateInterviewFragment extends Fragment {
             public void afterTextChanged(Editable s) {
                 searchFilter=participantName.getText().toString();
                 search(searchFilter);
+            }
+        });
+        final Button privateBtn = root.findViewById(R.id.privateBtn);
+        final Button publicBtn=root.findViewById(R.id.publicBtn);
+
+        privateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                privateBtn.setBackgroundResource(R.drawable.left_shape_button_green);
+                publicBtn.setBackgroundResource(R.drawable.right_shape_button_gray);
+                active="private";
+                Log.d("Participants",active);
+            }
+        });
+
+        publicBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                publicBtn.setBackgroundResource(R.drawable.right_shape_button_green);
+                privateBtn.setBackgroundResource(R.drawable.left_shape_button_gray);
+                active="public";
+            }
+        });
+
+        Button createBtn = root.findViewById(R.id.nextBtn);
+        createBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String participantId= Globals.participantId;
+                Log.d("Participant","Variaveis importantes: " + active + participantId);
+                Globals.participantId="";
             }
         });
         return root;

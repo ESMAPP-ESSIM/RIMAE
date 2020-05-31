@@ -85,10 +85,9 @@
         android:fontFamily="@font/montserrat_medium"
         android:text="Público"
         android:textSize="15sp"
-
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.662"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/privateBtn"
         app:layout_constraintTop_toBottomOf="@+id/interParti"
         tools:text="Público" />
 
