@@ -6,27 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.create_interview.CreateInterviewFragment">
 
-    <TextView
-        android:id="@+id/text_dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center_horizontal" />
-
 
     <EditText
         android:id="@+id/interTitle"
         android:layout_width="250sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="200dp"
         android:fontFamily="@font/montserrat_medium"
         android:hint="Título"
         android:paddingLeft="10sp"
@@ -36,7 +21,7 @@
         android:textColorHighlight="#7E7E7E"
         android:textColorHint="#7E7E7E"
         android:textSize="25sp"
-        app:backgroundTint="#FFF"
+        app:backgroundTint="#7E7E7E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +40,7 @@
         android:textColorHighlight="#7E7E7E"
         android:textColorHint="#7E7E7E"
         android:textSize="25sp"
-        app:backgroundTint="#FFF"
+        app:backgroundTint="#7E7E7E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,30 +52,38 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:fontFamily="@font/montserrat_medium"
-        android:hint="Participante"
-        android:inputType="textWebPassword"
+        android:hint="Nome do Participante"
+        android:inputType="textPersonName"
         android:paddingLeft="10sp"
         android:paddingRight="10sp"
         android:textColor="#7E7E7E"
         android:textColorHighlight="#7E7E7E"
         android:textColorHint="#7E7E7E"
         android:textSize="25sp"
-        app:backgroundTint="#FFF"
+        app:backgroundTint="#7E7E7E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/interDesc"></EditText>
 
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rParticipant"
+        android:layout_width="250dp"
+        android:layout_height="120dp"
+        app:layout_constraintStart_toStartOf="@id/interParti"
+        app:layout_constraintTop_toBottomOf="@id/interParti" />
+
     <Button
         android:id="@+id/publicBtn"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_marginTop="44dp"
-        android:background="@drawable/right_shape_button"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/right_shape_button_green"
         android:bottomLeftRadius="0dp"
         android:bottomRightRadius="10dp"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Privado"
+        android:text="Público"
         android:textSize="15sp"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,8 +96,8 @@
         android:id="@+id/privateBtn"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_marginTop="44dp"
-        android:background="@drawable/left_shape_button"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/left_shape_button_gray"
         android:bottomLeftRadius="0dp"
         android:bottomRightRadius="10dp"
         android:fontFamily="@font/montserrat_medium"
