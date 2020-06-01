@@ -40,6 +40,8 @@ public class ParticipantRecycler extends FirestoreRecyclerAdapter<Participant, P
                 String id=snapshot.getId();
                 index=position;
                 Globals.participantId=id;
+                Globals.participantName=snapshot.get("name").toString();
+                Globals.participantPic=snapshot.get("profile_pic").toString();
                 notifyDataSetChanged();
             }
         });
