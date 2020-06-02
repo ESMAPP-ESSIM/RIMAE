@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+>
 
     <Button
         android:id="@+id/endBtn"
@@ -28,7 +29,7 @@
         android:layout_marginLeft="25dp"
         android:background="@drawable/rounded_green_button"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Terminar"
+        android:text="Marcar"
         android:textAllCaps="false"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"

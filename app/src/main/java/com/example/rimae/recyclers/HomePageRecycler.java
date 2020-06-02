@@ -1,6 +1,8 @@
 package com.example.rimae.recyclers;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +12,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rimae.Main2Activity;
 import com.example.rimae.R;
+import com.example.rimae.VideoActivity;
 import com.example.rimae.models.Training;
+import com.example.rimae.ui.interview.DescriptionInterview;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -29,12 +35,24 @@ public class HomePageRecycler extends  FirestoreRecyclerAdapter<Training, HomePa
 
     @SuppressLint("NewApi")
     @Override
-    protected void onBindViewHolder(@NonNull InterviewHolder holder, int position, @NonNull Training model) {
+    protected void onBindViewHolder(@NonNull final InterviewHolder holder, int position, @NonNull Training model) {
         holder.txtTitle.setText(model.getTitle());
         holder.txtName.setText(model.getName());
         Long time = Long.parseLong(model.getTime());
         holder.txtTime.setText(new SimpleDateFormat("mm:ss").format(new Date(time)));
         Picasso.get().load(model.getProfile_pic()).fit().centerCrop().into(holder.imgCover);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
+                String id=snapshot.getId();
+                Context ctx= v.getContext();
+                Intent intent = new Intent(ctx, DescriptionInterview.class);
+                intent.putExtra("interviewId",id);
+                ctx.startActivity(intent);
+            }
+        });
     }
 
     @NonNull

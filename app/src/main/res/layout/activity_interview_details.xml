@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    tools:context=".ui.interview.DescriptionInterview">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -23,6 +25,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/back_arrow"
+            android:onClick="back"
             ></Button>
 
         <TextView
@@ -114,13 +117,13 @@
         android:layout_width="178dp"
         android:layout_height="31dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/montserrat_medium"
         android:text="Tânia Rodrigues"
         android:textColor="#000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.618"
+        app:layout_constraintHorizontal_bias="0.553"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/participantTitle" />
 
@@ -133,7 +136,48 @@
         app:civ_border_color="#fff"
         app:civ_border_width="5px"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.184"
+        app:layout_constraintHorizontal_bias="0.144"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/participantTitle"></de.hdodenhof.circleimageview.CircleImageView>
+
+    <EditText
+        android:id="@+id/pin"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginLeft="124dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginRight="124dp"
+        android:ems="10"
+        android:hint="Pin"
+        android:inputType="numberPassword"
+        android:textAllCaps="false"
+        android:textColor="#7E7E7E"
+        android:textColorHighlight="#7E7E7E"
+        android:textColorHint="#7E7E7E"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:backgroundTint="#7E7E7E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/participant_photo" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="53dp"
+        android:layout_marginLeft="53dp"
+        android:layout_marginTop="109dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginRight="53dp"
+        android:background="@drawable/rounded_orange_button"
+        android:fontFamily="@font/montserrat_medium"
+        android:onClick="goVideo"
+        android:text="Avaliar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/participant_photo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

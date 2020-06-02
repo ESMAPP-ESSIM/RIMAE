@@ -16,6 +16,8 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".BeforeLoginActivity" />
+        <activity android:name=".VideoActivity"/>
+        <activity android:name=".ui.interview.DescriptionInterview"/>
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme">

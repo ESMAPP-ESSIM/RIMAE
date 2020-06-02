@@ -4,7 +4,9 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
-
+    compileOptions{
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     defaultConfig {
         applicationId "com.example.rimae"
         minSdkVersion 16
@@ -44,7 +46,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
-
+    implementation 'com.google.android.exoplayer:exoplayer:2.11.4'
     //Add those line in dependencies
     implementation files('libs/activation.jar')
     implementation files('libs/additionnal.jar')
