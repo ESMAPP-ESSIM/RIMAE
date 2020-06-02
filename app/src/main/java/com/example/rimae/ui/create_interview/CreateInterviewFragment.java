@@ -2,6 +2,7 @@ package com.example.rimae.ui.create_interview;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -182,7 +183,7 @@ public class CreateInterviewFragment extends Fragment {
     */
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==0 && resultCode== Activity.RESULT_OK){
@@ -194,8 +195,14 @@ public class CreateInterviewFragment extends Fragment {
                     taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
+                            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+                            retriever.setDataSource(getContext(),data.getData());
+                            String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+                            long timeInMillisec=Long.parseLong(time);
+                            String timeMS=String.valueOf(timeInMillisec);
+                            retriever.release();
                             //Criar nova Entrevista
-                            saveNewInterview(uri.toString());
+                            saveNewInterview(uri.toString(),timeMS);
                         }
                     });
                 }
@@ -206,7 +213,7 @@ public class CreateInterviewFragment extends Fragment {
     /*
     *Função para criar uma nova entrevista
      */
-    private void saveNewInterview(String uri) {
+    private void saveNewInterview(String uri,String timeInMiliSec) {
         FirebaseFirestore dbTrainings=FirebaseFirestore.getInstance();
         //Mapa da entrevista
 
@@ -226,18 +233,20 @@ public class CreateInterviewFragment extends Fragment {
         training.put("pin",pin);
         training.put("title",interviewTitle.getText().toString());
         training.put("video_url",uri);
+        training.put("time" , timeInMiliSec);
+        updateUI();
 
         db.collection("trainings").document().set(training).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d("Training","Treino criado com sucesso");
+               Toast.makeText(getContext(),"Entrevista criada com sucesso",Toast.LENGTH_SHORT).show();
                 Globals.participantId="";
-                updateUI();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.w("Training","Failed to save", e);
+                Toast.makeText(getContext(),"A Entrevista Não Foi Criada",Toast.LENGTH_SHORT).show();
             }
         });
     }

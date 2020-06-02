@@ -16,6 +16,10 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 public class HomePageRecycler extends  FirestoreRecyclerAdapter<Training, HomePageRecycler.InterviewHolder>
 {
 
@@ -28,7 +32,8 @@ public class HomePageRecycler extends  FirestoreRecyclerAdapter<Training, HomePa
     protected void onBindViewHolder(@NonNull InterviewHolder holder, int position, @NonNull Training model) {
         holder.txtTitle.setText(model.getTitle());
         holder.txtName.setText(model.getName());
-        holder.txtTime.setText(model.getTime());
+        Long time = Long.parseLong(model.getTime());
+        holder.txtTime.setText(new SimpleDateFormat("mm:ss").format(new Date(time)));
         Picasso.get().load(model.getProfile_pic()).fit().centerCrop().into(holder.imgCover);
     }
 
