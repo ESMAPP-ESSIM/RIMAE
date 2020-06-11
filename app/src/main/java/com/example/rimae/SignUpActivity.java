@@ -142,7 +142,7 @@ public class SignUpActivity extends AppCompatActivity {
         Map<String,Object> user = new HashMap<>();
 
         user.put("name",nameInp.getText().toString());
-        user.put("com/example/rimae/email",emailInp.getText().toString());
+        user.put("email",emailInp.getText().toString());
         user.put("profile_pic",uri);
         user.put("points",0);
 

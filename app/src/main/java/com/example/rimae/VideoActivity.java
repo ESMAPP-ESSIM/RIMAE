@@ -14,7 +14,11 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
+import com.example.rimae.ui.interview.BookmarksInterview;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -33,7 +37,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class VideoActivity extends AppCompatActivity {
     FirebaseFirestore db=FirebaseFirestore.getInstance();
-    private SimpleExoPlayer player;
+    public static SimpleExoPlayer player;
     PlayerView videoPlayer;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -41,6 +45,12 @@ public class VideoActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
+
+        //Iniciar Fragment
+        BookmarksInterview firstFragment= new BookmarksInterview();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,firstFragment).commit();
+
+        //Iniciar video
         String interviewId = getIntent().getStringExtra("interviewId");
         Log.d("Interview","Activity " + interviewId);
 
@@ -57,9 +67,15 @@ public class VideoActivity extends AppCompatActivity {
                     DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(VideoActivity.this,Util.getUserAgent(VideoActivity.this,"Rimae"));
                     MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(uri);
                     player.prepare(videoSource);
+                    player.setPlayWhenReady(true);
                 }
             }
         });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        player.stop();
+    }
 }

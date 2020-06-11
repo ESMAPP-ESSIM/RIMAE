@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,9 +32,9 @@ public class DescriptionInterview extends AppCompatActivity{
     //Get Ids to query for information
     String observerId;
     String participantID;
-
+    String pinCode="";
     String interviewId="";
-
+    EditText pin;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +49,7 @@ public class DescriptionInterview extends AppCompatActivity{
         final TextView observerName = findViewById(R.id.interviewOwner);
         final ImageView observerPhoto = findViewById(R.id.creater_photo);
         final TextView participantName = findViewById(R.id.interviewParticipant);
-        final EditText pin = findViewById(R.id.pin);
+        pin = findViewById(R.id.pin);
         //Get Interview Details
         db.collection("trainings").document(interviewId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -63,6 +64,7 @@ public class DescriptionInterview extends AppCompatActivity{
                     Log.d("IDS","IDS: "+observerId + " "+participantID);
                     if(!task.getResult().get("public").toString().equals("true")){
                         pin.setVisibility(View.VISIBLE);
+                        pinCode=task.getResult().get("pin").toString();
                     }
                     db.collection("users").document(observerId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
@@ -92,9 +94,20 @@ public class DescriptionInterview extends AppCompatActivity{
     }
 
     public void goVideo(View view){
-        Intent intent = new Intent(this, VideoActivity.class);
-        intent.putExtra("interviewId",interviewId);
-        startActivity(intent);
-        finish();
+        if (pinCode.isEmpty()){
+            Intent intent = new Intent(this, VideoActivity.class);
+            intent.putExtra("interviewId",interviewId);
+            startActivity(intent);
+            finish();
+        }else{
+            if (pin.getText().toString().equals(pinCode)){
+                Intent intent = new Intent(this, VideoActivity.class);
+                intent.putExtra("interviewId",interviewId);
+                startActivity(intent);
+                finish();
+            }else{
+                Toast.makeText(this,"Pin Code doesnt match",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

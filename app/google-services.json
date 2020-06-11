@@ -1,42 +1,71 @@
 {
   "project_info": {
-    "project_number": "800724580961",
-    "firebase_url": "https://rimae-8e216.firebaseio.com",
-    "project_id": "rimae-8e216",
-    "storage_bucket": "rimae-8e216.appspot.com"
+    "project_number": "792620343409",
+    "firebase_url": "https://colloquium-5c437.firebaseio.com",
+    "project_id": "colloquium-5c437",
+    "storage_bucket": "colloquium-5c437.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:800724580961:android:30757146fdec7f0e3e8820",
+        "mobilesdk_app_id": "1:792620343409:android:6edb81649528252977fbd0",
         "android_client_info": {
-          "package_name": "com.example.rimae"
+          "package_name": "com.example.colloquium"
         }
       },
       "oauth_client": [
         {
-          "client_id": "800724580961-33nej65h2j77prll87r0h1i99eodd5u3.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.rimae",
-            "certificate_hash": "7acefe3757cef2cc57eefc6a5e0b946cde44f806"
-          }
-        },
-        {
-          "client_id": "800724580961-2is3vjt9jfn6od3qtrsdp5vcnraup31l.apps.googleusercontent.com",
+          "client_id": "792620343409-8nve3hqurihih8alth950glc3it2i3tp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB6pybZt7iTof084YWbRDm0e-DDOdPnDKw"
+          "current_key": "AIzaSyDzvRpf4k5lfIF28cGjkM4Rq1b-Uj8m_eI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "800724580961-2is3vjt9jfn6od3qtrsdp5vcnraup31l.apps.googleusercontent.com",
+              "client_id": "792620343409-8nve3hqurihih8alth950glc3it2i3tp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792620343409:android:af0425bd2c42cd6c77fbd0",
+        "android_client_info": {
+          "package_name": "com.example.coloquium"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792620343409-rdtgr12r4prpn28rggrf2d2krkagp1la.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.coloquium",
+            "certificate_hash": "af4de7c89dfe581f51a45646040741fec6dbe655"
+          }
+        },
+        {
+          "client_id": "792620343409-8nve3hqurihih8alth950glc3it2i3tp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzvRpf4k5lfIF28cGjkM4Rq1b-Uj8m_eI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "792620343409-8nve3hqurihih8alth950glc3it2i3tp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
