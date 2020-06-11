@@ -15,10 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rimae.R;
+import com.example.rimae.VideoActivity;
 import com.example.rimae.models.Bookmark;
 import com.example.rimae.models.VideoBookmark;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -31,7 +33,7 @@ public class ListBookmarksRecycler extends FirestoreRecyclerAdapter<VideoBookmar
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ListBookmarksRecycler.BookmarkHolder holder, int position, @NonNull VideoBookmark model) {
+    protected void onBindViewHolder(@NonNull ListBookmarksRecycler.BookmarkHolder holder, int position, @NonNull final VideoBookmark model) {
         Long time = Long.parseLong(model.getTime());
         holder.time.setText(new SimpleDateFormat("mm:ss").format(new Date(time)));
         holder.category.setText(model.getCategory());
@@ -46,6 +48,16 @@ public class ListBookmarksRecycler extends FirestoreRecyclerAdapter<VideoBookmar
         String colorAlpha= model.getColor();
         String finalColor="#26"+colorAlpha.substring(1);
         holder.linearLayout.getBackground().setColorFilter(Color.parseColor(finalColor), PorterDuff.Mode.SRC_ATOP);
+
+        //Ao clicar ir para segundo do video
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleExoPlayer player= VideoActivity.player;
+                player.seekTo(Long.parseLong(model.getTime()));
+                player.setPlayWhenReady(true);
+            }
+        });
     }
 
     @NonNull
