@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.rimae.Globals;
 import com.example.rimae.Main2Activity;
 import com.example.rimae.R;
 import com.example.rimae.VideoActivity;

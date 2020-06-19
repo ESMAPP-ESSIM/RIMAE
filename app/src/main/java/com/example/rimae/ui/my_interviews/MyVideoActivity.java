@@ -1,28 +1,20 @@
-package com.example.rimae;
+package com.example.rimae.ui.my_interviews;
 
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.MediaController;
-import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
+import com.example.rimae.Globals;
+import com.example.rimae.R;
+import com.example.rimae.VideoActivity;
 import com.example.rimae.ui.interview.BookmarksInterview;
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.ui.PlayerView;
@@ -34,8 +26,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+public class MyVideoActivity extends AppCompatActivity {
 
-public class VideoActivity extends AppCompatActivity {
     FirebaseFirestore db=FirebaseFirestore.getInstance();
     public static SimpleExoPlayer player;
     PlayerView videoPlayer;
@@ -44,10 +36,11 @@ public class VideoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video);
+        setContentView(R.layout.activity_myvideo);
+
         //Iniciar Fragment
-        BookmarksInterview firstFragment= new BookmarksInterview();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,firstFragment).commit();
+        ViewInterview firstFragment= new ViewInterview();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_2,firstFragment).commit();
 
         //Iniciar video
         String interviewId = getIntent().getStringExtra("interviewId");
@@ -64,7 +57,7 @@ public class VideoActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     Uri uri= Uri.parse(task.getResult().get("video_url").toString());
-                    DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(VideoActivity.this,Util.getUserAgent(VideoActivity.this,"Rimae"));
+                    DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(MyVideoActivity.this, Util.getUserAgent(MyVideoActivity.this,"Rimae"));
                     MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(uri);
                     player.prepare(videoSource);
                     player.setPlayWhenReady(true);

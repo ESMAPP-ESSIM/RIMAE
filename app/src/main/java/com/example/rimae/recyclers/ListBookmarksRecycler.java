@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rimae.Globals;
 import com.example.rimae.R;
 import com.example.rimae.VideoActivity;
 import com.example.rimae.models.Bookmark;
@@ -53,7 +54,7 @@ public class ListBookmarksRecycler extends FirestoreRecyclerAdapter<VideoBookmar
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleExoPlayer player= VideoActivity.player;
+                SimpleExoPlayer player= Globals.player;
                 player.seekTo(Long.parseLong(model.getTime()));
                 player.setPlayWhenReady(true);
             }

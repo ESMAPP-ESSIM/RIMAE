@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.rimae.BeforeLoginActivity;
+import com.example.rimae.ui.my_interviews.MyInterviewsFragment;
 import com.example.rimae.ui.profile.definitions.DefinitionsActivity;
 import com.example.rimae.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -69,13 +70,24 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
+        LinearLayout buttonMyInterviews = root.findViewById(R.id.buttonInterviews);
+        buttonMyInterviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMyInterviews();
+            }
+        });
 
     return root;
     }
 
     public void goToMyInterviews(){
-
+        MyInterviewsFragment fragment2=new MyInterviewsFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment,fragment2);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     public void goToSettings(){
