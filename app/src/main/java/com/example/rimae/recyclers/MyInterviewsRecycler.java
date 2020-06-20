@@ -14,10 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rimae.R;
-import com.example.rimae.VideoActivity;
 import com.example.rimae.models.Training;
-import com.example.rimae.ui.interview.DescriptionInterview;
-import com.example.rimae.ui.my_interviews.MyVideoActivity;
+import com.example.rimae.ui.my_interviews.EditInterview;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,9 +25,8 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static androidx.core.content.ContextCompat.startActivity;
 
-public class MyInterviewsRecycler extends FirestoreRecyclerAdapter<Training, MyInterviewsRecycler.InterviewHolder>
+public class MyInterviewsRecycler extends  FirestoreRecyclerAdapter<Training, MyInterviewsRecycler.InterviewHolder>
 {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -57,7 +54,7 @@ public class MyInterviewsRecycler extends FirestoreRecyclerAdapter<Training, MyI
                 @Override
                 public void onClick(View v) {
                     Context ctx= v.getContext();
-                    Intent intent = new Intent(ctx, MyVideoActivity.class);
+                    Intent intent = new Intent(ctx, EditInterview.class);
                     intent.putExtra("interviewId",id);
                     ctx.startActivity(intent);
                 }

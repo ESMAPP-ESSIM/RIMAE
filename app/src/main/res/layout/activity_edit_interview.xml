@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#FFF"
+    android:layout_height="match_parent"
+    tools:context=".ui.my_interviews.EditInterview">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="22dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/back_arrow"
+            android:onClick="back"
+            ></Button>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="start"
+            android:text="Minha Entrevista"
+            android:textAlignment="textStart"
+            android:textColor="#FFF"
+            android:textSize="27sp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/interviewTitle"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="25dp"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:fontFamily="@font/montserrat_medium"
+        android:hint="Simulação-aula"
+        android:textColor="#7E7E7E"
+        android:textColorHighlight="#7E7E7E"
+        android:textColorHint="#7E7E7E"
+        android:textSize="25sp"
+        app:backgroundTint="#7E7E7E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <EditText
+        android:id="@+id/interviewDesc"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:inputType="textLongMessage"
+        android:hint="Descrição da Entrevista"
+        android:textColor="#7E7E7E"
+        android:textColorHighlight="#7E7E7E"
+        android:textColorHint="#7E7E7E"
+        android:textSize="25sp"
+        app:backgroundTint="#7E7E7E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/interviewTitle" />
+    <EditText
+        android:id="@+id/interParti"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:hint="Nome do Participante"
+        android:inputType="textPersonName"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:textColor="#7E7E7E"
+        android:textColorHighlight="#7E7E7E"
+        android:textColorHint="#7E7E7E"
+        android:textSize="25sp"
+        app:backgroundTint="#7E7E7E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/interviewDesc"></EditText>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rParticipant"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        app:layout_constraintStart_toStartOf="@id/interParti"
+        app:layout_constraintTop_toBottomOf="@id/interParti" />
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="97dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_orange_button"
+        android:fontFamily="@font/montserrat_medium"
+        android:onClick="viewInterview"
+        android:text="Ver"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/saveBtn"
+        tools:text="Ver" />
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="97dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rounded_green_button"
+        android:fontFamily="@font/montserrat_medium"
+        android:onClick="editInterview"
+        android:text="Guardar"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rParticipant"
+        tools:text="Guardar" />
+
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="97dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_orange_button"
+        android:fontFamily="@font/montserrat_medium"
+        android:onClick="deleteBtn"
+        android:text="Apagar"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nextBtn"
+        tools:text="Apagar" />
+</androidx.constraintlayout.widget.ConstraintLayout>
