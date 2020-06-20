@@ -36,7 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class VideoActivity extends AppCompatActivity {
-    FirebaseFirestore db=FirebaseFirestore.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static SimpleExoPlayer player;
     PlayerView videoPlayer;
 
@@ -45,27 +45,29 @@ public class VideoActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
-        //Iniciar Fragment
-        BookmarksInterview firstFragment= new BookmarksInterview();
+
+        // Iniciar Fragment
+        BookmarksInterview firstFragment = new BookmarksInterview();
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,firstFragment).commit();
 
-        //Iniciar video
+        // Iniciar video
         String interviewId = getIntent().getStringExtra("interviewId");
         Log.d("Interview","Activity " + interviewId);
 
-        videoPlayer=findViewById(R.id.videoView);
+        videoPlayer = findViewById(R.id.videoView);
         player = new SimpleExoPlayer.Builder(this).build();
-        Globals.player=player;
+        Globals.player = player;
 
         videoPlayer.setPlayer(player);
 
         db.collection("trainings").document(interviewId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    Uri uri= Uri.parse(task.getResult().get("video_url").toString());
+                if (task.isSuccessful()) {
+                    Uri uri = Uri.parse(task.getResult().get("video_url").toString());
                     DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(VideoActivity.this,Util.getUserAgent(VideoActivity.this,"Rimae"));
                     MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(uri);
+
                     player.prepare(videoSource);
                     player.setPlayWhenReady(true);
                 }

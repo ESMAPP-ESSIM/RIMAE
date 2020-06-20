@@ -2,13 +2,13 @@ package com.example.rimae.models;
 
 public class Participant {
 
-    private String name,profile_pic;
+    private String name, profile_pic;
 
     public Participant(){}
 
-    public Participant(String name,String profile_pic){
-        this.name=name;
-        this.profile_pic=profile_pic;
+    public Participant(String name, String profile_pic) {
+        this.name = name;
+        this.profile_pic = profile_pic;
     }
 
     public String getProfile_pic() {

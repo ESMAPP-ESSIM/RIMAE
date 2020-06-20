@@ -36,21 +36,23 @@ public class ListBookmarksRecycler extends FirestoreRecyclerAdapter<VideoBookmar
     @Override
     protected void onBindViewHolder(@NonNull ListBookmarksRecycler.BookmarkHolder holder, int position, @NonNull final VideoBookmark model) {
         Long time = Long.parseLong(model.getTime());
+
         holder.time.setText(new SimpleDateFormat("mm:ss").format(new Date(time)));
         holder.category.setText(model.getCategory());
-        if (model.getType().equals("bad")){
+
+        if (model.getType().equals("bad")) {
             Picasso.get().load(R.drawable.bad_emoji).fit().centerCrop().into(holder.icon);
-        }else if(model.getType().equals("medium")){
+        } else if (model.getType().equals("medium")) {
             Picasso.get().load(R.drawable.medium_emoji).fit().centerCrop().into(holder.icon);
-        }else{
+        } else {
             Picasso.get().load(R.drawable.good_emoji).fit().centerCrop().into(holder.icon);
         }
 
-        String colorAlpha= model.getColor();
-        String finalColor="#26"+colorAlpha.substring(1);
+        String colorAlpha = model.getColor();
+        String finalColor ="#26"+colorAlpha.substring(1);
         holder.linearLayout.getBackground().setColorFilter(Color.parseColor(finalColor), PorterDuff.Mode.SRC_ATOP);
 
-        //Ao clicar ir para segundo do video
+        // Ao clicar ir para segundo do video
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +67,7 @@ public class ListBookmarksRecycler extends FirestoreRecyclerAdapter<VideoBookmar
     @Override
     public ListBookmarksRecycler.BookmarkHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookmark_icon_time_cardview, parent, false);
+
         return new BookmarkHolder(view);
     }
 
@@ -73,12 +76,14 @@ public class ListBookmarksRecycler extends FirestoreRecyclerAdapter<VideoBookmar
         TextView category;
         ImageView icon;
         LinearLayout linearLayout;
+
         public BookmarkHolder(View itemView) {
             super(itemView);
-            time= itemView.findViewById(R.id.timeView);
-            category=itemView.findViewById(R.id.category);
-            linearLayout= itemView.findViewById(R.id.markerInnerColor);
-            icon=itemView.findViewById(R.id.iconView);
+
+            time = itemView.findViewById(R.id.timeView);
+            category = itemView.findViewById(R.id.category);
+            linearLayout = itemView.findViewById(R.id.markerInnerColor);
+            icon = itemView.findViewById(R.id.iconView);
         }
     }
 }

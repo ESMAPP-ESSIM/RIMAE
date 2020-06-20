@@ -39,16 +39,16 @@ public class MyVideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_myvideo);
 
         //Iniciar Fragment
-        ViewInterview firstFragment= new ViewInterview();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_2,firstFragment).commit();
+        ViewInterview firstFragment = new ViewInterview();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_2, firstFragment).commit();
 
         //Iniciar video
         String interviewId = getIntent().getStringExtra("interviewId");
         Log.d("Interview","Activity " + interviewId);
 
-        videoPlayer=findViewById(R.id.videoView);
+        videoPlayer = findViewById(R.id.videoView);
         player = new SimpleExoPlayer.Builder(this).build();
-        Globals.player=player;
+        Globals.player = player;
 
         videoPlayer.setPlayer(player);
 
@@ -56,9 +56,10 @@ public class MyVideoActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
-                    Uri uri= Uri.parse(task.getResult().get("video_url").toString());
-                    DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(MyVideoActivity.this, Util.getUserAgent(MyVideoActivity.this,"Rimae"));
+                    Uri uri = Uri.parse(task.getResult().get("video_url").toString());
+                    DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(MyVideoActivity.this, Util.getUserAgent(MyVideoActivity.this, "Rimae"));
                     MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(uri);
+
                     player.prepare(videoSource);
                     player.setPlayWhenReady(true);
                 }

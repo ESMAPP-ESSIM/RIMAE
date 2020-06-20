@@ -30,18 +30,20 @@ public class ViewInterview extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_myvideo_markers, container, false);
 
         String interviewId = getActivity().getIntent().getStringExtra("interviewId");
-        Globals.currentInterview=interviewId;
+        Globals.currentInterview = interviewId;
 
-        Query query=db.collection("trainings").document(interviewId).collection("bookmarks");
+        Query query = db.collection("trainings").document(interviewId).collection("bookmarks");
         FirestoreRecyclerOptions<VideoBookmark> options = new FirestoreRecyclerOptions.Builder<VideoBookmark>()
                 .setQuery(query,VideoBookmark.class).build();
 
         adapter = new ListBookmarksRecycler(options);
         RecyclerView rBookmarks = root.findViewById(R.id.rBookmarks);
+
         rBookmarks.setHasFixedSize(true);
         rBookmarks.setLayoutManager(new LinearLayoutManager(getContext()));
         rBookmarks.setAdapter(adapter);
-        return  root;
+
+        return root;
     }
 
     @Override

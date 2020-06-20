@@ -30,30 +30,32 @@ public class ProfileFragment extends Fragment {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String userId = FirebaseAuth.getInstance().getUid();
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        //Ir buscar informação sobre o utilizador logged
+        // Ir buscar informação sobre o utilizador logged
         db.collection("users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     //Atualizar o ImageView e o TextView com a informação correspondente do utilizador
-                    String uri=task.getResult().get("profile_pic").toString();
+                    String uri = task.getResult().get("profile_pic").toString();
                     String name = task.getResult().get("name").toString();
-                    ImageView profilePhoto=root.findViewById(R.id.profilePhoto);
+
+                    ImageView profilePhoto = root.findViewById(R.id.profilePhoto);
                     Picasso.get().load(uri).fit().centerCrop().into(profilePhoto);
+
                     TextView profileName = root.findViewById(R.id.profileName);
                     profileName.setText(name);
-                }else{
+                } else {
                     Log.w("Document",task.getException());
                 }
             }
         });
 
         //Add ClickListeners
-
         LinearLayout buttonLogout = root.findViewById(R.id.buttonLogout);
         buttonLogout.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -78,22 +80,24 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-    return root;
+        return root;
     }
 
     public void goToMyInterviews(){
-        MyInterviewsFragment fragment2=new MyInterviewsFragment();
+        MyInterviewsFragment fragment2 = new MyInterviewsFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         fragmentTransaction.replace(R.id.nav_host_fragment,fragment2);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
     public void goToSettings(){
-        DefinitionsActivity fragment2= new DefinitionsActivity();
+        DefinitionsActivity fragment2 = new DefinitionsActivity();
         FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         fragmentTransaction.replace(R.id.nav_host_fragment,fragment2);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -105,7 +109,9 @@ public class ProfileFragment extends Fragment {
 
     public void logout(){
         FirebaseAuth.getInstance().signOut();
+
         Intent intent = new Intent(getContext(), BeforeLoginActivity.class);
+
         startActivity(intent);
         getActivity().finish();
     }

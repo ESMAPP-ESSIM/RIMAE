@@ -39,31 +39,34 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    EditText emailInp,nameInp,pwInp;
+    EditText emailInp, nameInp, pwInp;
     Button selectphoto;
     private Uri selectedPhotoUri;
     private StorageReference mStorageRef;
     private String uid;
 
     private CircleImageView imgPrev;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
         mAuth = FirebaseAuth.getInstance();
 
         //Get email name and password
-        emailInp=findViewById(R.id.emailInp);
-        nameInp=findViewById(R.id.nameInp);
-        pwInp=findViewById(R.id.pwInp);
-        selectphoto=findViewById(R.id.photo_button);
+        emailInp = findViewById(R.id.emailInp);
+        nameInp = findViewById(R.id.nameInp);
+        pwInp = findViewById(R.id.pwInp);
+        selectphoto = findViewById(R.id.photo_button);
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        imgPrev=findViewById(R.id.selected_photo_prev);
+        imgPrev = findViewById(R.id.selected_photo_prev);
     }
 
     public void selectPhoto(View view){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
+
         startActivityForResult(intent,0);
     }
 
@@ -71,12 +74,14 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==0 && resultCode==Activity.RESULT_OK){
-            selectedPhotoUri= data.getData();
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK){
+            selectedPhotoUri = data.getData();
+
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),selectedPhotoUri);
                 imgPrev.setImageBitmap(bitmap);
                 selectphoto.setAlpha(0f);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -85,32 +90,32 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void login(View view){
         //get the strings
-
-        String email=emailInp.getText().toString();
-        String pw= pwInp.getText().toString();
+        String email = emailInp.getText().toString();
+        String pw = pwInp.getText().toString();
         String name = nameInp.getText().toString();
 
-        if(TextUtils.isEmpty(email)||TextUtils.isEmpty(pw) || TextUtils.isEmpty(name)){
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pw) || TextUtils.isEmpty(name)) {
             Toast.makeText(this, "Please Fill all the fields", Toast.LENGTH_SHORT).show();
             return;
-        }else{
+        } else {
             mAuth.createUserWithEmailAndPassword(email, pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    Log.d("Sign",task.toString());
-                    if(task.isSuccessful()){
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        uid=user.getUid();
+                Log.d("Sign", task.toString());
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    uid = user.getUid();
 
-                        if(imgPrev.getDrawable()==null){
-                            saveUserToFirebase("http://www.coffeebrain.org/wiki/images/9/93/PEOPLE-NoFoto.JPG");
-                        }else{
-                            uploadImageToStorage();
-                        }
-                        updateUI();
-                    }else{
-                        Toast.makeText(SignUpActivity.this,"Unable To Create Account",Toast.LENGTH_LONG).show();
+                    if (imgPrev.getDrawable() == null){
+                        saveUserToFirebase("http://www.coffeebrain.org/wiki/images/9/93/PEOPLE-NoFoto.JPG");
+                    } else {
+                        uploadImageToStorage();
                     }
+
+                    updateUI();
+                } else {
+                    Toast.makeText(SignUpActivity.this,"Unable To Create Account", Toast.LENGTH_LONG).show();
+                }
                 }
             });
         }

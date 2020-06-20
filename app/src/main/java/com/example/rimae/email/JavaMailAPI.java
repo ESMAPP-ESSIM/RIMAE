@@ -32,7 +32,7 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
 
     private ProgressDialog mProgressDialog;
 
-    //Constructor
+    // Constructor
     public JavaMailAPI(Context mContext, String mEmail, String mSubject, String mMessage) {
         this.mContext = mContext;
         this.mEmail = mEmail;
@@ -43,6 +43,7 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+
         //Show progress dialog while sending email
         mProgressDialog = ProgressDialog.show(mContext,"Sending message", "Please wait...",false,false);
     }
@@ -59,25 +60,25 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
 
     @Override
     protected Void doInBackground(Void... params) {
-        //Creating properties
+        // Creating properties
         Properties props = new Properties();
 
-        //Configuring properties for gmail
-        //If you are not using gmail you may need to change the values
+        // Configuring properties for gmail
+        // If you are not using gmail you may need to change the values
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
 
-        //Creating a new session
+        // Creating a new session
         mSession = Session.getDefaultInstance(props,
-                new javax.mail.Authenticator() {
-                    //Authenticating the password
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(Utils.EMAIL, Utils.PASSWORD);
-                    }
-                });
+            new javax.mail.Authenticator() {
+                //Authenticating the password
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(Utils.EMAIL, Utils.PASSWORD);
+                }
+            });
 
         try {
             //Creating MimeMessage object
@@ -117,6 +118,7 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 }

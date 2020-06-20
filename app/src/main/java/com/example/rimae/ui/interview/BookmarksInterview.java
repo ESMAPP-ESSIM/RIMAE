@@ -31,43 +31,53 @@ public class BookmarksInterview extends Fragment {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ListBookmarksRecycler adapter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_video_markers_times, container, false);
         String interviewId = getActivity().getIntent().getStringExtra("interviewId");
-        Globals.currentInterview=interviewId;
+        Globals.currentInterview = interviewId;
+
         Log.d("Interview","Fragment " + interviewId);
-        //Botão para adicionar marcador
-        Button markbtn= root.findViewById(R.id.markBtn);
+
+        // Botão para adicionar marcador
+        Button markbtn = root.findViewById(R.id.markBtn);
+
         markbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleExoPlayer player= VideoActivity.player;
+                SimpleExoPlayer player = VideoActivity.player;
                 player.setPlayWhenReady(false);
-                //open add bookmark
-                AddBookmarInterview fragment2=new AddBookmarInterview();
+
+                // open add bookmark
+                AddBookmarInterview fragment2 = new AddBookmarInterview();
                 FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
                 fragmentTransaction.replace(R.id.fragment_container,fragment2);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-            }
+             }
         });
+
         //Botão para terminar entrevista
 
 
+
         //Iniciar RecyclerView
-        Query query=db.collection("trainings").document(interviewId).collection("bookmarks").whereEqualTo("userId", FirebaseAuth.getInstance().getUid());
+        Query query = db.collection("trainings").document(interviewId).collection("bookmarks").whereEqualTo("userId", FirebaseAuth.getInstance().getUid());
         FirestoreRecyclerOptions<VideoBookmark> options = new FirestoreRecyclerOptions.Builder<VideoBookmark>()
                 .setQuery(query,VideoBookmark.class).build();
 
         adapter = new ListBookmarksRecycler(options);
 
         RecyclerView rBookmarks = root.findViewById(R.id.rBookmarks);
+
         rBookmarks.setHasFixedSize(true);
         rBookmarks.setLayoutManager(new LinearLayoutManager(getContext()));
         rBookmarks.setAdapter(adapter);
+
         return  root;
     }
 

@@ -46,7 +46,7 @@ public class AddBookmarInterview extends Fragment {
                 .setQuery(query, Bookmark.class).build();
 
         adapter = new AddBookmarkRecycler(options);
-        RecyclerView rBookmarks=root.findViewById(R.id.rBookmarkList);
+        RecyclerView rBookmarks = root.findViewById(R.id.rBookmarkList);
 
         rBookmarks.setHasFixedSize(true);
         rBookmarks.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -66,9 +66,10 @@ public class AddBookmarInterview extends Fragment {
         adapter.stopListening();
     }
     public void updateUI(){
-        BookmarksInterview fragment2=new BookmarksInterview();
+        BookmarksInterview fragment2 = new BookmarksInterview();
         FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         fragmentTransaction.replace(R.id.fragment_container,fragment2);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();

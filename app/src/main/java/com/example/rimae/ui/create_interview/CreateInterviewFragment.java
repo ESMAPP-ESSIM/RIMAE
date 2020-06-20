@@ -53,26 +53,28 @@ import java.util.Random;
 import java.util.UUID;
 
 public class CreateInterviewFragment extends Fragment {
-
-    FirebaseFirestore db=FirebaseFirestore.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     ParticipantRecycler adapter;
     EditText participantName;
     RecyclerView rParticipant;
-    String searchFilter="";
-    String active="public";
-    String pin="";
-    String participantId="";
-    EditText interviewTitle,interviewDesc;
+    String searchFilter = "";
+    String active = "public";
+    String pin = "";
+    String participantId = "";
+    EditText interviewTitle, interviewDesc;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_create_interview, container, false);
-        //Get the variables
-        interviewTitle= root.findViewById(R.id.interTitle);
-        interviewDesc=root.findViewById(R.id.interDesc);
 
-        rParticipant= root.findViewById(R.id.rParticipant);
-        participantName=root.findViewById(R.id.interParti);
+        //Get the variables
+        interviewTitle = root.findViewById(R.id.interTitle);
+        interviewDesc = root.findViewById(R.id.interDesc);
+
+        rParticipant = root.findViewById(R.id.rParticipant);
+        participantName = root.findViewById(R.id.interParti);
         startRecycler();
+
         /*
         *Detetar alteraçoes do filtro
          */
@@ -93,8 +95,9 @@ public class CreateInterviewFragment extends Fragment {
                 search(searchFilter);
             }
         });
+
         final Button privateBtn = root.findViewById(R.id.privateBtn);
-        final Button publicBtn=root.findViewById(R.id.publicBtn);
+        final Button publicBtn = root.findViewById(R.id.publicBtn);
 
         /*
          * Alterar entre privado e publico
@@ -102,151 +105,161 @@ public class CreateInterviewFragment extends Fragment {
         privateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                privateBtn.setBackgroundResource(R.drawable.left_shape_button_green);
-                publicBtn.setBackgroundResource(R.drawable.right_shape_button_gray);
-                active="private";
-                Log.d("Participants",active);
+            privateBtn.setBackgroundResource(R.drawable.left_shape_button_green);
+            publicBtn.setBackgroundResource(R.drawable.right_shape_button_gray);
+            active = "private";
+            Log.d("Participants",active);
             }
         });
 
         publicBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                publicBtn.setBackgroundResource(R.drawable.right_shape_button_green);
-                privateBtn.setBackgroundResource(R.drawable.left_shape_button_gray);
-                active="public";
+            publicBtn.setBackgroundResource(R.drawable.right_shape_button_green);
+            privateBtn.setBackgroundResource(R.drawable.left_shape_button_gray);
+            active = "public";
             }
         });
 
         /*
-        *Criar Entrevista
+        * Criar Entrevista
         *
-         */
+        */
         Button createBtn = root.findViewById(R.id.nextBtn);
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                participantId= Globals.participantId;
+            participantId = Globals.participantId;
 
-                if(TextUtils.isEmpty(interviewTitle.getText().toString())||TextUtils.isEmpty(interviewDesc.getText().toString())||TextUtils.isEmpty(participantId)){
-                   Log.d("Participant",interviewTitle.getText().toString()+interviewDesc.getText().toString()+participantId);
-                   Toast.makeText(getContext(),"Por favor preencha todos os campos",Toast.LENGTH_SHORT).show();
-               }else{
-                   createInterview(participantId);
-               }
+            if (TextUtils.isEmpty(interviewTitle.getText().toString()) || TextUtils.isEmpty(interviewDesc.getText().toString()) || TextUtils.isEmpty(participantId)){
+                Log.d("Participant",interviewTitle.getText().toString() + interviewDesc.getText().toString() + participantId);
+                Toast.makeText(getContext(),"Por favor preencha todos os campos",Toast.LENGTH_SHORT).show();
+            } else {
+                createInterview(participantId);
+            }
             }
         });
+
         return root;
     }
     private  void createInterview(String participantId){
         //If Private Generate random pin and send email with the pin
-        if(active.equals("private")){
-            Random random=new Random();
-            pin=String.format("%04d",random.nextInt(10000));
-            Log.d("Participant","Pin:" + pin);
+
+        if (active.equals("private")) {
+            Random random = new Random();
             String creatorUid = FirebaseAuth.getInstance().getUid();
+
+            pin = String.format("%04d",random.nextInt(10000));
+            Log.d("Participant","Pin:" + pin);
+
             //Ir buscar o email para enviar
             FirebaseFirestore.getInstance().collection("users").document(creatorUid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if(task.isSuccessful()){
-                        Log.d("Participant", "Dentro da função: " + task.getResult().get("email").toString());
-                        String mail = task.getResult().get("email").toString();
-                        String message = "O pin para aceder a esta entrevista é:" +pin;
-                        String subject = "Pin da sua entrevista";
-                        JavaMailAPI javaMailAPI=new JavaMailAPI(getContext(),mail,subject,message);
-                        javaMailAPI.execute();
-                        sendVideo();
-                    }else{
-                        Log.d("Participant","failed");
-                    }
+                if (task.isSuccessful()) {
+                    Log.d("Participant", "Dentro da função: " + task.getResult().get("email").toString());
+                    String mail = task.getResult().get("email").toString();
+                    String message = "O pin para aceder a esta entrevista é:" + pin;
+                    String subject = "Pin da sua entrevista";
+
+                    JavaMailAPI javaMailAPI = new JavaMailAPI(getContext(), mail, subject, message);
+                    javaMailAPI.execute();
+                    sendVideo();
+                } else {
+                    Log.d("Participant","failed");
+                }
                 }
             });
-        }else{
+        } else {
             sendVideo();
         }
-
     }
 
     /*
     *Função para abrir a galeria
-     */
+    */
     private void sendVideo() {
-        //Abrir galeria
+        // Abrir galeria
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
         intent.setType("video/*");
+
         startActivityForResult(intent,0);
     }
 
     /*
     * Upload Video depois de escolher o video
     */
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==0 && resultCode== Activity.RESULT_OK){
-            String filename= UUID.randomUUID().toString();
-            final StorageReference videoRef= FirebaseStorage.getInstance().getReference().child("videos/"+filename);
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK){
+            String filename = UUID.randomUUID().toString();
+            final StorageReference videoRef = FirebaseStorage.getInstance().getReference().child("videos/" + filename);
+
             videoRef.putFile(data.getData()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-                            retriever.setDataSource(getContext(),data.getData());
-                            String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-                            long timeInMillisec=Long.parseLong(time);
-                            String timeMS=String.valueOf(timeInMillisec);
-                            retriever.release();
-                            //Criar nova Entrevista
-                            saveNewInterview(uri.toString(),timeMS);
-                        }
-                    });
+                taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                    MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+                    retriever.setDataSource(getContext(),data.getData());
+
+                    String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+                    long timeInMillisec = Long.parseLong(time);
+                    String timeMS = String.valueOf(timeInMillisec);
+
+                    retriever.release();
+
+                    //Criar nova Entrevista
+                    saveNewInterview(uri.toString(),timeMS);
+                }
+                });
                 }
             });
         }
     }
 
     /*
-    *Função para criar uma nova entrevista
-     */
+    * Função para criar uma nova entrevista
+    */
     private void saveNewInterview(String uri,String timeInMiliSec) {
-        FirebaseFirestore dbTrainings=FirebaseFirestore.getInstance();
-        //Mapa da entrevista
+        FirebaseFirestore dbTrainings = FirebaseFirestore.getInstance();
 
+        //Mapa da entrevista
         Map<String,Object> training = new HashMap<>();
-        training.put("completed",false);
-        training.put("description",interviewDesc.getText().toString());
-        training.put("name",Globals.participantName);
-        training.put("observed_uid",Globals.participantId);
-        training.put("owner_uid",FirebaseAuth.getInstance().getUid());
-        training.put("profile_pic",Globals.participantPic);
-        if(active.equals("public")){
-            training.put("public",true);
-        }else{
-            training.put("public",false);
+
+        training.put("completed", false);
+        training.put("description", interviewDesc.getText().toString());
+        training.put("name", Globals.participantName);
+        training.put("observed_uid", Globals.participantId);
+        training.put("owner_uid", FirebaseAuth.getInstance().getUid());
+        training.put("profile_pic", Globals.participantPic);
+
+        if (active.equals("public")) {
+            training.put("public", true);
+        } else {
+            training.put("public", false);
         }
 
-        training.put("pin",pin);
-        training.put("title",interviewTitle.getText().toString());
-        training.put("video_url",uri);
-        training.put("time" , timeInMiliSec);
+        training.put("pin", pin);
+        training.put("title", interviewTitle.getText().toString());
+        training.put("video_url", uri);
+        training.put("time", timeInMiliSec);
+
         updateUI();
 
         db.collection("trainings").document().set(training).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-               Toast.makeText(getContext(),"Entrevista criada com sucesso",Toast.LENGTH_SHORT).show();
-                Globals.participantId="";
-
+                Toast.makeText(getContext(),"Entrevista criada com sucesso", Toast.LENGTH_SHORT).show();
+                Globals.participantId = "";
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(),"A Entrevista Não Foi Criada",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"A Entrevista Não Foi Criada", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -256,15 +269,13 @@ public class CreateInterviewFragment extends Fragment {
     *Função para iniciar a recycler view
     *
     */
-
     private void startRecycler() {
-        Query query= db.collection("users");
+        Query query = db.collection("users");
 
-        FirestoreRecyclerOptions<Participant> options= new FirestoreRecyclerOptions.Builder<Participant>()
+        FirestoreRecyclerOptions<Participant> options = new FirestoreRecyclerOptions.Builder<Participant>()
                 .setQuery(query, Participant.class).build();
 
         adapter = new ParticipantRecycler(options);
-
 
         rParticipant.setHasFixedSize(true);
         rParticipant.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -272,10 +283,9 @@ public class CreateInterviewFragment extends Fragment {
     }
 
     /*
-    *Função para atualizar o recyclerview
+    * Função para atualizar o recyclerview
     *
     */
-
     public void search(String search) {
         Query newQuery = db.collection("users").orderBy("name").startAt(search).endAt(search + "\uf8ff");
 
@@ -299,6 +309,7 @@ public class CreateInterviewFragment extends Fragment {
 
     public void updateUI(){
         Intent intent = new Intent(getContext(), Main2Activity.class);
+
         startActivity(intent);
     }
 }

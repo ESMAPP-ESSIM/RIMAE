@@ -31,10 +31,11 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        Query query= db.collection("trainings");
+        Query query=  db.collection("trainings");
 
-        Log.d("Query","Query"+query.toString());
-        FirestoreRecyclerOptions<Training> options= new FirestoreRecyclerOptions.Builder<Training>()
+        Log.d("Query","Query" + query.toString());
+
+        FirestoreRecyclerOptions<Training> options = new FirestoreRecyclerOptions.Builder<Training>()
                 .setQuery(query, Training.class).build();
 
         adapter = new HomePageRecycler(options);

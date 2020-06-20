@@ -3,11 +3,11 @@ package com.example.rimae.models;
 public class Bookmark {
     private String color,name;
 
-    public Bookmark(){}
+    public Bookmark() {}
 
-    public  Bookmark(String color,String name){
-        this.color=color;
-        this.name=name;
+    public  Bookmark(String color, String name) {
+        this.color = color;
+        this.name = name;
     }
 
     public String getColor() {

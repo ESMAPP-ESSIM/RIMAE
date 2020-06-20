@@ -26,8 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class HomePageRecycler extends  FirestoreRecyclerAdapter<Training, HomePageRecycler.InterviewHolder>
-{
+public class HomePageRecycler extends FirestoreRecyclerAdapter<Training, HomePageRecycler.InterviewHolder> {
 
     public HomePageRecycler(@NonNull FirestoreRecyclerOptions<Training> options) {
         super(options);
@@ -36,20 +35,24 @@ public class HomePageRecycler extends  FirestoreRecyclerAdapter<Training, HomePa
     @SuppressLint("NewApi")
     @Override
     protected void onBindViewHolder(@NonNull final InterviewHolder holder, int position, @NonNull Training model) {
+        Long time = Long.parseLong(model.getTime());
+
         holder.txtTitle.setText(model.getTitle());
         holder.txtName.setText(model.getName());
-        Long time = Long.parseLong(model.getTime());
         holder.txtTime.setText(new SimpleDateFormat("mm:ss").format(new Date(time)));
+
         Picasso.get().load(model.getProfile_pic()).fit().centerCrop().into(holder.imgCover);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
-                String id=snapshot.getId();
-                Context ctx= v.getContext();
+                String id = snapshot.getId();
+                Context ctx = v.getContext();
+
                 Intent intent = new Intent(ctx, DescriptionInterview.class);
                 intent.putExtra("interviewId",id);
+
                 ctx.startActivity(intent);
             }
         });
@@ -58,14 +61,13 @@ public class HomePageRecycler extends  FirestoreRecyclerAdapter<Training, HomePa
     @NonNull
     @Override
     public InterviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview, parent, false);
 
         return new InterviewHolder(view);
     }
 
     class InterviewHolder extends RecyclerView.ViewHolder {
-        TextView txtTitle, txtName,txtTime;
+        TextView txtTitle, txtName, txtTime;
         ImageView imgCover;
 
         public InterviewHolder(@NonNull View itemView) {
@@ -75,8 +77,6 @@ public class HomePageRecycler extends  FirestoreRecyclerAdapter<Training, HomePa
             txtName = itemView.findViewById(R.id.nome);
             txtTime = itemView.findViewById(R.id.time);
             imgCover = itemView.findViewById(R.id.pic);
-
-
         }
     }
 }

@@ -6,13 +6,13 @@ import java.util.Date;
 public class VideoBookmark {
     private String category,time,type,color;
 
-    public VideoBookmark(){}
+    public VideoBookmark() {}
 
-    public VideoBookmark(String category,String time,String type,String color){
-        this.category=category;
-        this.time=time;
-        this.type=type;
-        this.color=color;
+    public VideoBookmark(String category, String time, String type, String color) {
+        this.category = category;
+        this.time = time;
+        this.type = type;
+        this.color = color;
     }
 
     public String getColor() {

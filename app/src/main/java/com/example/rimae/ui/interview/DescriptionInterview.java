@@ -28,29 +28,34 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
-public class DescriptionInterview extends AppCompatActivity{
+public class DescriptionInterview extends AppCompatActivity {
     FirebaseFirestore db=FirebaseFirestore.getInstance();
-    //Get Ids to query for information
+
+    // Get Ids to query for information
     String observerId;
     String participantID;
-    String pinCode="";
-    String interviewId="";
+    String pinCode ="";
+    String interviewId ="";
     EditText pin;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interview_details);
-        interviewId=getIntent().getStringExtra("interviewId");
+        interviewId = getIntent().getStringExtra("interviewId");
 
         Log.d("Entrevista",interviewId);
+
         //Get Inputs
         final TextView title = findViewById(R.id.interviewTitle);
         final TextView description = findViewById(R.id.interviewDesc);
-        final ImageView participantPhoto=findViewById(R.id.participant_photo);
+        final ImageView participantPhoto = findViewById(R.id.participant_photo);
         final TextView observerName = findViewById(R.id.interviewOwner);
         final ImageView observerPhoto = findViewById(R.id.creater_photo);
         final TextView participantName = findViewById(R.id.interviewParticipant);
+
         pin = findViewById(R.id.pin);
+
         //Get Interview Details
         db.collection("trainings").document(interviewId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -58,20 +63,28 @@ public class DescriptionInterview extends AppCompatActivity{
                 if(task.isSuccessful()){
                     title.setText(task.getResult().get("title").toString());
                     description.setText(task.getResult().get("description").toString());
-                    String uri=task.getResult().get("profile_pic").toString();
+
+                    String uri = task.getResult().get("profile_pic").toString();
+
                     Picasso.get().load(uri).fit().centerCrop().into(participantPhoto);
+
                     observerId = task.getResult().get("owner_uid").toString();
                     participantID=task.getResult().get("observed_uid").toString();
-                    Log.d("IDS","IDS: "+observerId + " "+participantID);
-                    if(!task.getResult().get("public").toString().equals("true")){
+
+                    Log.d("IDS","IDS: " + observerId + " " + participantID);
+
+                    if (!task.getResult().get("public").toString().equals("true")) {
                         pin.setVisibility(View.VISIBLE);
-                        pinCode=task.getResult().get("pin").toString();
+                        pinCode = task.getResult().get("pin").toString();
                     }
+
                     db.collection("users").document(observerId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             observerName.setText(task.getResult().get("name").toString());
+
                             String uri = task.getResult().get("profile_pic").toString();
+
                             Picasso.get().load(uri).fit().centerCrop().into(observerPhoto);
                         }
                     });
@@ -88,25 +101,28 @@ public class DescriptionInterview extends AppCompatActivity{
 
     }
 
-    public void back(View view){
+    public void back(View view) {
         Intent intent = new Intent(this, Main2Activity.class);
+
         startActivity(intent);
         finish();
     }
 
-    public void goVideo(View view){
-        if (pinCode.isEmpty()){
+    public void goVideo(View view) {
+        if (pinCode.isEmpty()) {
             Intent intent = new Intent(this, VideoActivity.class);
             intent.putExtra("interviewId",interviewId);
+
             startActivity(intent);
             finish();
-        }else{
-            if (pin.getText().toString().equals(pinCode)){
+        } else {
+            if (pin.getText().toString().equals(pinCode)) {
                 Intent intent = new Intent(this, VideoActivity.class);
                 intent.putExtra("interviewId",interviewId);
+
                 startActivity(intent);
                 finish();
-            }else{
+            } else {
                 Toast.makeText(this,"Pin Code doesnt match",Toast.LENGTH_SHORT).show();
             }
         }

@@ -29,7 +29,7 @@ import java.util.Date;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
-public class MyInterviewsRecycler extends  FirestoreRecyclerAdapter<Training, MyInterviewsRecycler.InterviewHolder>
+public class MyInterviewsRecycler extends FirestoreRecyclerAdapter<Training, MyInterviewsRecycler.InterviewHolder>
 {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -41,13 +41,16 @@ public class MyInterviewsRecycler extends  FirestoreRecyclerAdapter<Training, My
     @Override
     protected void onBindViewHolder(@NonNull final InterviewHolder holder, int position, @NonNull Training model) {
         final DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
-        final String id=snapshot.getId();
-        Log.d("MY","OBSERVERUID: "+snapshot.get("observed_uid").toString() +"OWNER: " + snapshot.get("owner_uid").toString());
-        if(snapshot.get("observed_uid").toString().equals(mAuth.getUid()) || snapshot.get("owner_uid").toString().equals(mAuth.getUid())){
+        final String id = snapshot.getId();
+        Log.d("MY","OBSERVERUID: " + snapshot.get("observed_uid").toString() + "OWNER: " + snapshot.get("owner_uid").toString());
+
+        if (snapshot.get("observed_uid").toString().equals(mAuth.getUid()) || snapshot.get("owner_uid").toString().equals(mAuth.getUid())) {
+            Long time = Long.parseLong(model.getTime());
+
             holder.txtTitle.setText(model.getTitle());
             holder.txtName.setText(model.getName());
-            Long time = Long.parseLong(model.getTime());
             holder.txtTime.setText(new SimpleDateFormat("mm:ss").format(new Date(time)));
+
             Picasso.get().load(model.getProfile_pic()).fit().centerCrop().into(holder.imgCover);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -57,14 +60,16 @@ public class MyInterviewsRecycler extends  FirestoreRecyclerAdapter<Training, My
                     Intent intent = new Intent(ctx, MyVideoActivity.class);
                     intent.putExtra("interviewId",id);
                     ctx.startActivity(intent);
-
                 }
             });
-        }else {
+        } else {
             holder.itemView.setVisibility(View.GONE);
+
             RecyclerView.LayoutParams param = (RecyclerView.LayoutParams)holder.itemView.getLayoutParams();
-            param.height=0;
-            param.width=0;
+
+            param.height = 0;
+            param.width = 0;
+
             holder.itemView.setLayoutParams(param);
         }
     }
@@ -72,14 +77,13 @@ public class MyInterviewsRecycler extends  FirestoreRecyclerAdapter<Training, My
     @NonNull
     @Override
     public InterviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview, parent, false);
 
         return new InterviewHolder(view);
     }
 
     class InterviewHolder extends RecyclerView.ViewHolder {
-        TextView txtTitle, txtName,txtTime;
+        TextView txtTitle, txtName, txtTime;
         ImageView imgCover;
 
         public InterviewHolder(@NonNull View itemView) {
@@ -89,8 +93,6 @@ public class MyInterviewsRecycler extends  FirestoreRecyclerAdapter<Training, My
             txtName = itemView.findViewById(R.id.nome);
             txtTime = itemView.findViewById(R.id.time);
             imgCover = itemView.findViewById(R.id.pic);
-
-
         }
     }
 }

@@ -34,33 +34,38 @@ public class MyInterviewsFragment extends Fragment {
 
         final View root = inflater.inflate(R.layout.fragment_my_interviews, container, false);
 
-        //Buscar entrevistas onde o observed id ou o owner id é do utilizador autenticado
+        // Buscar entrevistas onde o observed id ou o owner id é do utilizador autenticado
         Query query = db.collection("trainings");
 
         FirestoreRecyclerOptions<Training> options= new FirestoreRecyclerOptions.Builder<Training>()
                 .setQuery(query, Training.class).build();
 
         adapter = new MyInterviewsRecycler(options);
-        RecyclerView rInterview=root.findViewById(R.id.rInterviews);
+
+        RecyclerView rInterview = root.findViewById(R.id.rInterviews);
+
         rInterview.setHasFixedSize(true);
         rInterview.setLayoutManager(new LinearLayoutManager(getContext()));
         rInterview.setAdapter(adapter);
+
         //Back Button
-        Button back=root.findViewById(R.id.buttonBack);
+        Button back = root.findViewById(R.id.buttonBack);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goBack();
             }
         });
-        return  root;
+
+        return root;
     }
 
     //Back to profile fragment
-    public void goBack(){
+    public void goBack() {
         ProfileFragment fragment2 = new ProfileFragment();
         FragmentManager fragmentManager= getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         fragmentTransaction.replace(R.id.nav_host_fragment,fragment2);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
