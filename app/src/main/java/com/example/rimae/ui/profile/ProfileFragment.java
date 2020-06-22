@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.rimae.BeforeLoginActivity;
 import com.example.rimae.ui.my_interviews.MyInterviewsFragment;
+import com.example.rimae.ui.profile.admin.MarkersFragment;
 import com.example.rimae.ui.profile.definitions.DefinitionsActivity;
 import com.example.rimae.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -80,6 +81,14 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        LinearLayout buttonManageMarkers= root.findViewById(R.id.buttonAdmin);
+        buttonManageMarkers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToAdmin();
+            }
+        });
+
         return root;
     }
 
@@ -105,7 +114,14 @@ public class ProfileFragment extends Fragment {
 
     public void goToStats(){}
 
-    public void goToAdmin(){}
+    public void goToAdmin(){
+        MarkersFragment fragment2 = new MarkersFragment();
+        FragmentManager fragmentManager=getFragmentManager();
+        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment,fragment2);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
     public void logout(){
         FirebaseAuth.getInstance().signOut();
