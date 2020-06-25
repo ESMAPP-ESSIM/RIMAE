@@ -6,4 +6,5 @@
     <color name="colorOrange">#FC7753</color>
     <color name="colorMainGreen">#1E9E84</color>
     <color name="colorGray">#C4C4C4</color>
+    <color name="hint_foreground_material_light">#FFF</color>
 </resources>

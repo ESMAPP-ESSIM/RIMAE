@@ -15,18 +15,28 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rimae.Globals;
 import com.example.rimae.R;
 import com.example.rimae.models.Bookmark;
 import com.example.rimae.recyclers.ManageBookmarksRecycler;
 import com.example.rimae.ui.interview.BookmarksInterview;
 import com.example.rimae.ui.profile.ProfileFragment;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MarkersFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ManageBookmarksRecycler adapter;
+    FloatingActionButton fab;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +60,27 @@ public class MarkersFragment extends Fragment {
         rBookmarks.setHasFixedSize(true);
         rBookmarks.setLayoutManager(new LinearLayoutManager(getContext()));
         rBookmarks.setAdapter(adapter);
+        fab=root.findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<Object,String> bookmark=new HashMap<>();
+                bookmark.put("color","#FFFFFF");
+                bookmark.put("name","Nova Categoria");
+                db.collection("bookmarks_categories").add(bookmark).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Globals.currentMarker=documentReference.getId();
+                        Fragment fragment2 = new EditMarkerFragment();
+                        FragmentManager fragmentManager=getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.nav_host_fragment,fragment2);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                });
+            }
+        });
         return  root;
     }
 
