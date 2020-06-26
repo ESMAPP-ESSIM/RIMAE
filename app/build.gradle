@@ -51,4 +51,6 @@ dependencies {
     implementation files('libs/additionnal.jar')
     implementation files('libs/mail.jar')
     implementation 'com.pes.materialcolorpicker:library:1.0.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+
 }

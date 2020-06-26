@@ -20,6 +20,7 @@ import com.example.rimae.ui.my_interviews.MyInterviewsFragment;
 import com.example.rimae.ui.profile.admin.MarkersFragment;
 import com.example.rimae.ui.profile.definitions.DefinitionsActivity;
 import com.example.rimae.R;
+import com.example.rimae.ui.profile.stats.StatsFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -89,6 +90,14 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        LinearLayout buttonStats=root.findViewById(R.id.buttonStats);
+        buttonStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToStats();
+            }
+        });
+
         return root;
     }
 
@@ -112,7 +121,14 @@ public class ProfileFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
-    public void goToStats(){}
+    public void goToStats(){
+        StatsFragment fragment2 = new StatsFragment();
+        FragmentManager fragmentManager=getFragmentManager();
+        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment,fragment2);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
     public void goToAdmin(){
         MarkersFragment fragment2 = new MarkersFragment();

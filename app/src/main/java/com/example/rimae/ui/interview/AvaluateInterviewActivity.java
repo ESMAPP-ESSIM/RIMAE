@@ -21,6 +21,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -97,6 +98,17 @@ public class AvaluateInterviewActivity extends AppCompatActivity {
             Map<String,Object> userAvaluation = new HashMap<>();
             userAvaluation.put("avaluated",true);
             db.collection("trainings").document(Globals.currentInterview).collection("users").document(mAuth.getUid()).set(userAvaluation);
+            db.collection("users").document(Globals.avaliatedUserId).collection("avaluations").orderBy("category").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        for (QueryDocumentSnapshot document:task.getResult()){
+                            db.collection("users").document(Globals.avaliatedUserId).update(document.get("category").toString(), FieldValue.increment(Integer.parseInt(document.get("value").toString())));
+                            db.collection("users").document(Globals.avaliatedUserId).update("points",FieldValue.increment(Integer.parseInt(document.get("value").toString())));
+                        }
+                    }
+                }
+            });
             finish();
         }
     }

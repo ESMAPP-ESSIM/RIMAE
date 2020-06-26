@@ -10,4 +10,5 @@ public class Globals {
     public static String currentInterview = "";//Resetar este valor no fim da avaliação
     public static SimpleExoPlayer player;
     public static String currentMarker="";
+    public static String avaliatedUserId="";
 }

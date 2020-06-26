@@ -52,13 +52,13 @@ public class AvaluationRecycler extends FirestoreRecyclerAdapter<Question, Avalu
                     db.collection("trainings").document(Globals.currentInterview).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Globals.avaliatedUserId=documentSnapshot.get("observed_uid").toString();
                             String observedId=documentSnapshot.get("observed_uid").toString();
                             String uid=mAuth.getUid();
                             Map<String,Object> avaluation = new HashMap<>();
-                            avaluation.put("uid",uid);
                             avaluation.put("value","3");
                             avaluation.put("category",AvaluateInterviewActivity.bookmarkName.getText().toString());
-                            db.collection("users").document(observedId).collection("avaluations").document(model.getQuestion()).set(avaluation);
+                            db.collection("users").document(observedId).collection("avaluations").document(model.getQuestion()+uid).set(avaluation);
                         }
                     });
             }
@@ -72,13 +72,13 @@ public class AvaluationRecycler extends FirestoreRecyclerAdapter<Question, Avalu
                 db.collection("trainings").document(Globals.currentInterview).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Globals.avaliatedUserId=documentSnapshot.get("observed_uid").toString();
                         String observedId=documentSnapshot.get("observed_uid").toString();
                         String uid=mAuth.getUid();
                         Map<String,Object> avaluation = new HashMap<>();
-                        avaluation.put("uid",uid);
                         avaluation.put("value","2");
                         avaluation.put("category",AvaluateInterviewActivity.bookmarkName.getText().toString());
-                        db.collection("users").document(observedId).collection("avaluations").document(model.getQuestion()).set(avaluation);
+                        db.collection("users").document(observedId).collection("avaluations").document(model.getQuestion()+uid).set(avaluation);
                     }
                 });
             }
@@ -89,16 +89,16 @@ public class AvaluationRecycler extends FirestoreRecyclerAdapter<Question, Avalu
                     holder.good.setBackgroundResource(R.drawable.good_emoji);
                     holder.medium.setBackgroundResource(R.drawable.medium_emoji);
                     holder.bad.setBackgroundResource(R.drawable.bad_emoji_sel);
-                db.collection("trainings").document(Globals.currentInterview).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    db.collection("trainings").document(Globals.currentInterview).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Globals.avaliatedUserId=documentSnapshot.get("observed_uid").toString();
                         String observedId=documentSnapshot.get("observed_uid").toString();
                         String uid=mAuth.getUid();
                         Map<String,Object> avaluation = new HashMap<>();
-                        avaluation.put("uid",uid);
                         avaluation.put("value","1");
                         avaluation.put("category",AvaluateInterviewActivity.bookmarkName.getText().toString());
-                        db.collection("users").document(observedId).collection("avaluations").document(model.getQuestion()).set(avaluation);
+                        db.collection("users").document(observedId).collection("avaluations").document(model.getQuestion()+uid).set(avaluation);
                     }
                 });
             }
