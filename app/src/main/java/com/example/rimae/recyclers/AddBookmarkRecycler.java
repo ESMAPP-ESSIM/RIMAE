@@ -157,7 +157,7 @@ public class AddBookmarkRecycler extends FirestoreRecyclerAdapter<Bookmark, AddB
             super(itemView);
 
             bookmarkName = itemView.findViewById(R.id.markerName);
-            card_view = (CardView) itemView.findViewById(R.id.cardView);
+            card_view = itemView.findViewById(R.id.cardView);
             linearLayout = itemView.findViewById(R.id.markerInnerColor);
             emojis = itemView.findViewById(R.id.emojis);
             bad = itemView.findViewById(R.id.badIcon);

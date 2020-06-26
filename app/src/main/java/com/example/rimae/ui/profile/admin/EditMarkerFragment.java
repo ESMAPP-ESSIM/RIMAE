@@ -67,7 +67,7 @@ public class EditMarkerFragment extends Fragment {
                     int red =Integer.valueOf(color.substring(1,3),16);
                     int green=Integer.valueOf(color.substring(3,5),16);
                     int blue = Integer.valueOf(color.substring(5,7),16);
-                    Log.d("Marker","Color"+String.valueOf(red)+String.valueOf(green)+String.valueOf(blue));
+                    Log.d("Marker","Color"+ red + green + blue);
                     colorPicker = new ColorPicker(getActivity(),red,green,blue);
                     chooseColor=root.findViewById(R.id.chooseColor);
                     chooseColor.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +87,7 @@ public class EditMarkerFragment extends Fragment {
                         }
                     });
 
-;                }
+                }
             }
         });
 
@@ -104,7 +104,9 @@ public class EditMarkerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 db.collection("bookmarks_categories").document(markerID).update("name",markerName.getText().toString());
-                db.collection("bookmarks_categories").document(markerID).update("color",newHexCode);
+                if(!newHexCode.isEmpty()){
+                    db.collection("bookmarks_categories").document(markerID).update("color",newHexCode);
+                }
             }
         });
 

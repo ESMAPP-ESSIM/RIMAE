@@ -100,7 +100,7 @@ public class ManageBookmarksRecycler  extends FirestoreRecyclerAdapter<Bookmark,
         public BookmarkHolder(@NonNull View itemView) {
             super(itemView);
             bookmarkName = itemView.findViewById(R.id.markerName);
-            card_view = (CardView) itemView.findViewById(R.id.cardView);
+            card_view = itemView.findViewById(R.id.cardView);
             linearLayout = itemView.findViewById(R.id.markerInnerColor);
             manageBtn=itemView.findViewById(R.id.manageBtn);
             editBtn=itemView.findViewById(R.id.editBtn);

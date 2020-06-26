@@ -20,6 +20,7 @@
         <activity android:name=".VideoActivity"/>
         <activity android:name=".ui.interview.DescriptionInterview"/>
         <activity android:name=".ui.interview.AvaluateInterviewActivity"/>
+        <activity android:name=".ui.interview.VideoFilteredActivity"/>
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme">

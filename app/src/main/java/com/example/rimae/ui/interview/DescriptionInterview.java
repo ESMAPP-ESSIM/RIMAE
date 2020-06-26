@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +22,9 @@ import com.example.rimae.Main2Activity;
 import com.example.rimae.R;
 import com.example.rimae.VideoActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
@@ -30,7 +33,7 @@ import org.w3c.dom.Text;
 
 public class DescriptionInterview extends AppCompatActivity {
     FirebaseFirestore db=FirebaseFirestore.getInstance();
-
+    FirebaseAuth mAuth=FirebaseAuth.getInstance();
     // Get Ids to query for information
     String observerId;
     String participantID;
@@ -70,14 +73,15 @@ public class DescriptionInterview extends AppCompatActivity {
 
                     observerId = task.getResult().get("owner_uid").toString();
                     participantID=task.getResult().get("observed_uid").toString();
-
+                    if (participantID.equals(mAuth.getUid())){
+                        Button goVideo = findViewById(R.id.button);
+                        goVideo.setVisibility(View.GONE);
+                    }
                     Log.d("IDS","IDS: " + observerId + " " + participantID);
-
                     if (!task.getResult().get("public").toString().equals("true")) {
                         pin.setVisibility(View.VISIBLE);
                         pinCode = task.getResult().get("pin").toString();
                     }
-
                     db.collection("users").document(observerId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -88,7 +92,6 @@ public class DescriptionInterview extends AppCompatActivity {
                             Picasso.get().load(uri).fit().centerCrop().into(observerPhoto);
                         }
                     });
-
                     db.collection("users").document(participantID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
