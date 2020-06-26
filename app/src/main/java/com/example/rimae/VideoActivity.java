@@ -67,7 +67,6 @@ public class VideoActivity extends AppCompatActivity {
                     Uri uri = Uri.parse(task.getResult().get("video_url").toString());
                     DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(VideoActivity.this,Util.getUserAgent(VideoActivity.this,"Rimae"));
                     MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(uri);
-
                     player.prepare(videoSource);
                     player.setPlayWhenReady(true);
                 }

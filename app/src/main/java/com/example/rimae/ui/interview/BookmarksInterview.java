@@ -1,6 +1,7 @@
 package com.example.rimae.ui.interview;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -62,7 +63,14 @@ public class BookmarksInterview extends Fragment {
         });
 
         //Botão para terminar entrevista
-
+        Button endbtn= root.findViewById(R.id.endBtn);
+        endbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getContext(),AvaluateInterviewActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         //Iniciar RecyclerView
