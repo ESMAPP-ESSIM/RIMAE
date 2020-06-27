@@ -58,7 +58,6 @@ public class AvaluateInterviewActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     for(QueryDocumentSnapshot document: task.getResult()){
                         bookmarksList.add(new Bookmark(document.getId(),document.get("name").toString(),document.get("color").toString()));
-
                     }
                     updateUI(bookmarksList.get(currentIndex).name,bookmarksList.get(currentIndex).color,currentIndex,bookmarksList.size());
                     startRecycler(bookmarksList.get(currentIndex).id);
