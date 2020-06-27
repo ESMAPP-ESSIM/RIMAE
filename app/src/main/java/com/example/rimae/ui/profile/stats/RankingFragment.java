@@ -49,18 +49,18 @@ public class RankingFragment extends Fragment {
         final TextView place = root.findViewById(R.id.place);
         final TextView points=root.findViewById(R.id.points);
         final CircleImageView profilePhoto=root.findViewById(R.id.profilePhoto);
-        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("users").orderBy("points", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
                     int index=1;
                     for (QueryDocumentSnapshot documentSnapshot:task.getResult()){
-                        index++;
                         if (documentSnapshot.getId().equals(mAuth.getUid())){
                             place.setText(String.valueOf(index));
                             points.setText(documentSnapshot.get("points").toString());
                             Picasso.get().load(documentSnapshot.get("profile_pic").toString()).fit().centerCrop().into(profilePhoto);
                         }
+                        index++;
                     }
                 }
             }
