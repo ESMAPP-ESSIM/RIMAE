@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class VideoBookmark {
-    private String category,time,type,color;
+    private String category, time, type, color;
 
     public VideoBookmark() {}
 

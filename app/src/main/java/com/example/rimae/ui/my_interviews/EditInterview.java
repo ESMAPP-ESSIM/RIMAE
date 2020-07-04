@@ -41,6 +41,10 @@ public class EditInterview extends AppCompatActivity {
     String interviewId="";
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +102,11 @@ public class EditInterview extends AppCompatActivity {
      *Função para atualizar o recyclerview
      *
      */
+
+    /**
+     *
+     * @param search
+     */
     private void search(String search) {
         Query newQuery = db.collection("users").orderBy("name").startAt(search).endAt(search + "\uf8ff");
 
@@ -109,6 +118,10 @@ public class EditInterview extends AppCompatActivity {
 
     /*
      *Função para iniciar a recycler view
+     *
+     */
+
+    /**
      *
      */
     private void startRecycler() {
@@ -125,10 +138,18 @@ public class EditInterview extends AppCompatActivity {
         rParticipant.setAdapter(adapter);
     }
 
+    /**
+     *
+     * @param view
+     */
     public void back(View view){
         finish();
     }
 
+    /**
+     *
+     * @param view
+     */
     public void viewInterview(View view){
         Intent intent = new Intent(this, MyVideoActivity.class);
         intent.putExtra("interviewId",interviewId);
@@ -136,6 +157,10 @@ public class EditInterview extends AppCompatActivity {
         finish();
     }
 
+    /**
+     *
+     * @param view
+     */
     public void deleteBtn(View view){
         db.collection("trainings").document(interviewId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -145,6 +170,10 @@ public class EditInterview extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * @param view
+     */
     public void editInterview(View view){
         db.collection("trainings").document(interviewId).update("title",interTitle.getText().toString());
         db.collection("trainings").document(interviewId).update("description",interDesc.getText().toString());
@@ -155,12 +184,19 @@ public class EditInterview extends AppCompatActivity {
         }
         Toast.makeText(EditInterview.this,"Entrevista Alterada com sucesso",Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     *
+     */
     @Override
     protected void onStart() {
         super.onStart();
         adapter.startListening();
     }
 
+    /**
+     *
+     */
     @Override
     protected void onStop() {
         super.onStop();

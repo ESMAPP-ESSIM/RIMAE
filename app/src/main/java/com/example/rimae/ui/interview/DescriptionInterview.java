@@ -41,6 +41,10 @@ public class DescriptionInterview extends AppCompatActivity {
     String interviewId ="";
     EditText pin;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +108,10 @@ public class DescriptionInterview extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @param view
+     */
     public void back(View view) {
         Intent intent = new Intent(this, Main2Activity.class);
 
@@ -111,6 +119,10 @@ public class DescriptionInterview extends AppCompatActivity {
         finish();
     }
 
+    /**
+     *
+     * @param view
+     */
     public void goVideo(View view) {
         if (pinCode.isEmpty()) {
             Intent intent = new Intent(this, VideoActivity.class);

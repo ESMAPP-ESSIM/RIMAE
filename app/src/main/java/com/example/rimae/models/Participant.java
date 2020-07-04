@@ -4,7 +4,7 @@ public class Participant {
 
     private String name, profile_pic;
 
-    public Participant(){}
+    public Participant() {}
 
     public Participant(String name, String profile_pic) {
         this.name = name;

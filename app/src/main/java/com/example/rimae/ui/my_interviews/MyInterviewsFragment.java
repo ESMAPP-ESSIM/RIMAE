@@ -28,6 +28,13 @@ public class MyInterviewsFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     MyInterviewsRecycler adapter;
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,6 +67,9 @@ public class MyInterviewsFragment extends Fragment {
         return root;
     }
 
+    /**
+     *
+     */
     //Back to profile fragment
     public void goBack() {
         ProfileFragment fragment2 = new ProfileFragment();
@@ -71,12 +81,18 @@ public class MyInterviewsFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
+    /**
+     *
+     */
     @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
     }
 
+    /**
+     *
+     */
     @Override
     public void onStop() {
         super.onStop();

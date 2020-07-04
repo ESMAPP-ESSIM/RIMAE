@@ -45,6 +45,14 @@ public class EditMarkerFragment extends Fragment {
     String markerID=Globals.currentMarker;
     ColorPicker colorPicker;
     String newHexCode="";
+
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -127,6 +135,9 @@ public class EditMarkerFragment extends Fragment {
         return  root;
     }
 
+    /**
+     *
+     */
     public void updateUI(){
         MarkersFragment fragment2 = new MarkersFragment();
         FragmentManager fragmentManager= getFragmentManager();
@@ -137,12 +148,18 @@ public class EditMarkerFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
+    /**
+     *
+     */
     @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
     }
 
+    /**
+     *
+     */
     @Override
     public void onStop() {
         super.onStop();

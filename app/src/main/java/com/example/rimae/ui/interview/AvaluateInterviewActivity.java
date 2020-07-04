@@ -42,6 +42,11 @@ public class AvaluateInterviewActivity extends AppCompatActivity {
     RecyclerView rQuestion;
     AvaluationRecycler adapter;
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
+
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +91,13 @@ public class AvaluateInterviewActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * @param name
+     * @param color
+     * @param currentIndex
+     * @param size
+     */
     public void updateUI(String name,String color, int currentIndex,int size){
         bookmarkName.setText(bookmarksList.get(currentIndex).name);
         divider.setBackgroundColor(Color.parseColor(bookmarksList.get(currentIndex).color));
@@ -112,6 +124,10 @@ public class AvaluateInterviewActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     * @param view
+     */
     public void review(View view){
         Intent intent = new Intent(this,VideoFilteredActivity.class);
         intent.putExtra("interviewId",Globals.currentInterview);
@@ -130,21 +146,36 @@ public class AvaluateInterviewActivity extends AppCompatActivity {
         adapter.startListening();
     }
 
+    /**
+     *
+     * @param bookmarkCategory
+     */
     public void update(String bookmarkCategory){
         Query query = db.collection("bookmarks_categories").document(bookmarkCategory).collection("questions");
         FirestoreRecyclerOptions<Question> newOptions = new FirestoreRecyclerOptions.Builder<Question>()
                 .setQuery(query,Question.class).build();
         adapter.updateOptions(newOptions);
     }
+
+    /**
+     *
+     * @param view
+     */
     public  void goBack(View view){
         finish();
     }
 
+    /**
+     *
+     */
     @Override
     protected void onStart() {
         super.onStart();
     }
 
+    /**
+     *
+     */
     @Override
     protected void onStop() {
         super.onStop();

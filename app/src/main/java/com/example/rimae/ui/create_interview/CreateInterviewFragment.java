@@ -67,17 +67,15 @@ public class CreateInterviewFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_create_interview, container, false);
 
-        //Get the variables
+        // Get the user inputs
         interviewTitle = root.findViewById(R.id.interTitle);
         interviewDesc = root.findViewById(R.id.interDesc);
-
         rParticipant = root.findViewById(R.id.rParticipant);
         participantName = root.findViewById(R.id.interParti);
+
         startRecycler();
 
-        /*
-        *Detetar alteraçoes do filtro
-         */
+        // Check for filter changes
         participantName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -100,7 +98,7 @@ public class CreateInterviewFragment extends Fragment {
         final Button publicBtn = root.findViewById(R.id.publicBtn);
 
         /*
-         * Alterar entre privado e publico
+         * Switch between private and public
          */
         privateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +106,6 @@ public class CreateInterviewFragment extends Fragment {
             privateBtn.setBackgroundResource(R.drawable.left_shape_button_green);
             publicBtn.setBackgroundResource(R.drawable.right_shape_button_gray);
             active = "private";
-            Log.d("Participants",active);
             }
         });
 
@@ -122,8 +119,7 @@ public class CreateInterviewFragment extends Fragment {
         });
 
         /*
-        * Criar Entrevista
-        *
+        * Create training
         */
         Button createBtn = root.findViewById(R.id.nextBtn);
         createBtn.setOnClickListener(new View.OnClickListener() {
@@ -131,9 +127,12 @@ public class CreateInterviewFragment extends Fragment {
             public void onClick(View v) {
             participantId = Globals.participantId;
 
-            if (TextUtils.isEmpty(interviewTitle.getText().toString()) || TextUtils.isEmpty(interviewDesc.getText().toString()) || TextUtils.isEmpty(participantId)){
-                Log.d("Participant",interviewTitle.getText().toString() + interviewDesc.getText().toString() + participantId);
-                Toast.makeText(getContext(),"Por favor preencha todos os campos",Toast.LENGTH_SHORT).show();
+            if (
+                    TextUtils.isEmpty(interviewTitle.getText().toString())
+                    || TextUtils.isEmpty(interviewDesc.getText().toString())
+                    || TextUtils.isEmpty(participantId)
+            ) {
+                Toast.makeText(getContext(),"Por favor, preencha todos os campos",Toast.LENGTH_SHORT).show();
             } else {
                 createInterview(participantId);
             }
@@ -142,22 +141,25 @@ public class CreateInterviewFragment extends Fragment {
 
         return root;
     }
-    private  void createInterview(String participantId){
-        //If Private Generate random pin and send email with the pin
 
+    /**
+     * Used to create a new interview
+     *
+     * @param participantId the id of the participant
+     */
+    private  void createInterview(String participantId){
+        // If the interview is Private, generates a random pin and sends it by email
         if (active.equals("private")) {
             Random random = new Random();
             String creatorUid = FirebaseAuth.getInstance().getUid();
 
-            pin = String.format("%04d",random.nextInt(10000));
-            Log.d("Participant","Pin:" + pin);
+            pin = String.format("%04d", random.nextInt(10000));
 
-            //Ir buscar o email para enviar
+            // Gets the user email which the pin will be sent to
             FirebaseFirestore.getInstance().collection("users").document(creatorUid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-                    Log.d("Participant", "Dentro da função: " + task.getResult().get("email").toString());
                     String mail = task.getResult().get("email").toString();
                     String message = "O pin para aceder a esta entrevista é:" + pin;
                     String subject = "Pin da sua entrevista";
@@ -175,20 +177,20 @@ public class CreateInterviewFragment extends Fragment {
         }
     }
 
-    /*
-    *Função para abrir a galeria
-    */
+    /**
+     * Allows the user to select a video to be uploaded
+     */
     private void sendVideo() {
-        // Abrir galeria
+        // Opens the gallery
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
         intent.setType("video/*");
 
         startActivityForResult(intent,0);
     }
 
-    /*
-    * Upload Video depois de escolher o video
-    */
+    /**
+     * Uploads the video after it has been selected
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -203,31 +205,33 @@ public class CreateInterviewFragment extends Fragment {
                 taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                    MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-                    retriever.setDataSource(getContext(),data.getData());
+                        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+                        retriever.setDataSource(getContext(),data.getData());
 
-                    String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-                    long timeInMillisec = Long.parseLong(time);
-                    String timeMS = String.valueOf(timeInMillisec);
+                        String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+                        long timeInMillisec = Long.parseLong(time);
+                        String timeMS = String.valueOf(timeInMillisec);
 
-                    retriever.release();
+                        retriever.release();
 
-                    //Criar nova Entrevista
-                    saveNewInterview(uri.toString(),timeMS);
-                }
+                        // Saves a new interview
+                        saveNewInterview(uri.toString(),timeMS);
+                    }
                 });
                 }
             });
         }
     }
 
-    /*
-    * Função para criar uma nova entrevista
-    */
-    private void saveNewInterview(String uri,String timeInMiliSec) {
+    /**
+     * Saves a new interview to DB
+     *
+     * @param uri the uri of the video
+     * @param timeInMiliSec the total time of the video in milliseconds
+     */
+    private void saveNewInterview(String uri, String timeInMiliSec) {
         FirebaseFirestore dbTrainings = FirebaseFirestore.getInstance();
 
-        //Mapa da entrevista
         Map<String,Object> training = new HashMap<>();
 
         training.put("completed", false);
@@ -250,9 +254,13 @@ public class CreateInterviewFragment extends Fragment {
 
         updateUI();
 
-        db.collection("trainings").document().set(training).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("trainings")
+                .document()
+                .set(training)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
+
                 Toast.makeText(getContext(),"Entrevista criada com sucesso", Toast.LENGTH_SHORT).show();
                 Globals.participantId = "";
             }
@@ -264,11 +272,6 @@ public class CreateInterviewFragment extends Fragment {
         });
     }
 
-
-    /*
-    *Função para iniciar a recycler view
-    *
-    */
     private void startRecycler() {
         Query query = db.collection("users");
 
@@ -282,17 +285,16 @@ public class CreateInterviewFragment extends Fragment {
         rParticipant.setAdapter(adapter);
     }
 
-    /*
-    * Função para atualizar o recyclerview
-    *
-    */
     public void search(String search) {
-        Query newQuery = db.collection("users").orderBy("name").startAt(search).endAt(search + "\uf8ff");
+        Query newQuery = db.collection("users")
+                            .orderBy("name")
+                            .startAt(search)
+                            .endAt(search + "\uf8ff");
 
-        FirestoreRecyclerOptions<Participant> newOptions = new FirestoreRecyclerOptions.Builder<Participant>().setQuery(newQuery, Participant.class).build();
+        FirestoreRecyclerOptions<Participant> newOptions =
+                new FirestoreRecyclerOptions.Builder<Participant>().setQuery(newQuery, Participant.class).build();
 
         adapter.updateOptions(newOptions);
-        Log.d("Participants",search);
     }
 
     @Override

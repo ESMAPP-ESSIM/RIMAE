@@ -50,6 +50,13 @@ public class DefinitionsActivity extends Fragment {
     String userId = FirebaseAuth.getInstance().getUid();
     String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -112,6 +119,9 @@ public class DefinitionsActivity extends Fragment {
         return root;
     }
 
+    /**
+     *
+     */
     public void changePhoto(){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -169,6 +179,10 @@ public class DefinitionsActivity extends Fragment {
         });
     }
 
+    /**
+     *
+     * @param newName
+     */
     private void updateName(String newName) {
         db.collection("users").document(userId).update("name", newName);
     }
@@ -190,6 +204,9 @@ public class DefinitionsActivity extends Fragment {
         });
     }
 
+    /**
+     *
+     */
     private  void updateUI(){
         ProfileFragment fragment2 = new ProfileFragment();
         FragmentManager fragmentManager= getFragmentManager();
@@ -200,6 +217,9 @@ public class DefinitionsActivity extends Fragment {
         fragmentTransaction.commit();
     }
 
+    /**
+     *
+     */
     public void goBack(){
         ProfileFragment fragment2 = new ProfileFragment();
         FragmentManager fragmentManager= getFragmentManager();

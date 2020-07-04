@@ -24,30 +24,30 @@ public class UsersRecycler extends FirestoreRecyclerAdapter<User, UsersRecycler.
 
     @Override
     protected void onBindViewHolder(@NonNull UsersRecycler.UserHolder holder, int position, @NonNull User model) {
-        Log.d("RANKING","USER:"+model.getName()+model.getPoints()+position+model.getProfile_pic());
         holder.userPoints.setText(String.valueOf(model.getPoints()));
         holder.userName.setText(model.getName());
-        holder.position.setText(String.valueOf(position+1));
+        holder.position.setText(String.valueOf(position + 1));
+
         Picasso.get().load(model.getProfile_pic()).fit().centerCrop().into(holder.userProfilePic);
     }
 
     @NonNull
     @Override
     public UsersRecycler.UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.users_cardview,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.users_cardview, parent,false);
         return new UserHolder(view);
     }
 
     class UserHolder extends RecyclerView.ViewHolder{
-        TextView position,userName,userPoints;
+        TextView position, userName, userPoints;
         CircleImageView userProfilePic;
 
         public UserHolder(@NonNull View itemView) {
             super(itemView);
-            position=itemView.findViewById(R.id.position);
-            userName=itemView.findViewById(R.id.userName);
-            userPoints=itemView.findViewById(R.id.userPoints);
-            userProfilePic=itemView.findViewById(R.id.userProfilePic);
+            position = itemView.findViewById(R.id.position);
+            userName = itemView.findViewById(R.id.userName);
+            userPoints = itemView.findViewById(R.id.userPoints);
+            userProfilePic = itemView.findViewById(R.id.userProfilePic);
         }
     }
 }

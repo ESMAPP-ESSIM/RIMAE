@@ -6,7 +6,7 @@ public class Question {
     public Question() {}
 
     public Question(String question){
-        this.question=question;
+        this.question = question;
     }
 
     public String getQuestion() {

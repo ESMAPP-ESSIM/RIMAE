@@ -26,6 +26,13 @@ public class AddBookmarInterview extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     AddBookmarkRecycler adapter;
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,17 +61,27 @@ public class AddBookmarInterview extends Fragment {
         return root;
     }
 
+    /**
+     *
+     */
     @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
     }
 
+    /**
+     *
+     */
     @Override
     public void onStop() {
         super.onStop();
         adapter.stopListening();
     }
+
+    /**
+     *
+     */
     public void updateUI(){
         BookmarksInterview fragment2 = new BookmarksInterview();
         FragmentManager fragmentManager = getFragmentManager();

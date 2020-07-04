@@ -34,7 +34,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-
 public class VideoActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static SimpleExoPlayer player;
@@ -46,13 +45,11 @@ public class VideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
-        // Iniciar Fragment
         BookmarksInterview firstFragment = new BookmarksInterview();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,firstFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, firstFragment).commit();
 
-        // Iniciar video
+        // Starts video
         String interviewId = getIntent().getStringExtra("interviewId");
-        Log.d("Interview","Activity " + interviewId);
 
         videoPlayer = findViewById(R.id.videoView);
         player = new SimpleExoPlayer.Builder(this).build();
@@ -65,8 +62,12 @@ public class VideoActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     Uri uri = Uri.parse(task.getResult().get("video_url").toString());
-                    DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(VideoActivity.this,Util.getUserAgent(VideoActivity.this,"Rimae"));
+                    DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(
+                            VideoActivity.this,
+                            Util.getUserAgent(VideoActivity.this,"Rimae")
+                    );
                     MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(uri);
+
                     player.prepare(videoSource);
                     player.setPlayWhenReady(true);
                 }

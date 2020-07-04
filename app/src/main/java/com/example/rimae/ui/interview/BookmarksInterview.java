@@ -33,6 +33,13 @@ public class BookmarksInterview extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ListBookmarksRecycler adapter;
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -90,12 +97,18 @@ public class BookmarksInterview extends Fragment {
         return  root;
     }
 
+    /**
+     *
+     */
     @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
     }
 
+    /**
+     *
+     */
     @Override
     public void onStop() {
         super.onStop();

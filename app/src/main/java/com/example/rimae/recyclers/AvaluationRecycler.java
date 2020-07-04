@@ -31,8 +31,9 @@ import java.util.Map;
 
 public class AvaluationRecycler extends FirestoreRecyclerAdapter<Question, AvaluationRecycler.BookmarkHolder> {
 
-    FirebaseFirestore db=FirebaseFirestore.getInstance();
-    FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
     public AvaluationRecycler(@NonNull FirestoreRecyclerOptions<Question> options) {
         super(options);
     }
@@ -43,62 +44,81 @@ public class AvaluationRecycler extends FirestoreRecyclerAdapter<Question, Avalu
         holder.good.setBackgroundResource(R.drawable.good_emoji);
         holder.medium.setBackgroundResource(R.drawable.medium_emoji);
         holder.bad.setBackgroundResource(R.drawable.bad_emoji);
+
         holder.good.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     holder.good.setBackgroundResource(R.drawable.good_emoji_sel);
                     holder.medium.setBackgroundResource(R.drawable.medium_emoji);
                     holder.bad.setBackgroundResource(R.drawable.bad_emoji);
+
                     db.collection("trainings").document(Globals.currentInterview).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            Globals.avaliatedUserId=documentSnapshot.get("observed_uid").toString();
-                            String observedId=documentSnapshot.get("observed_uid").toString();
-                            String uid=mAuth.getUid();
+                            Globals.avaliatedUserId = documentSnapshot.get("observed_uid").toString();
+                            String observedId = documentSnapshot.get("observed_uid").toString();
+                            String uid = mAuth.getUid();
                             Map<String,Object> avaluation = new HashMap<>();
-                            avaluation.put("value","3");
-                            avaluation.put("category",AvaluateInterviewActivity.bookmarkName.getText().toString());
+
+                            avaluation.put("value", "3");
+                            avaluation.put("category", AvaluateInterviewActivity.bookmarkName.getText().toString());
+
                             db.collection("users").document(observedId).collection("avaluations").document(model.getQuestion()+uid).set(avaluation);
                         }
                     });
             }
         });
+
         holder.medium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     holder.good.setBackgroundResource(R.drawable.good_emoji);
                     holder.medium.setBackgroundResource(R.drawable.medium_emoji_sel);
                     holder.bad.setBackgroundResource(R.drawable.bad_emoji);
+
                 db.collection("trainings").document(Globals.currentInterview).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Globals.avaliatedUserId=documentSnapshot.get("observed_uid").toString();
-                        String observedId=documentSnapshot.get("observed_uid").toString();
-                        String uid=mAuth.getUid();
+                        Globals.avaliatedUserId = documentSnapshot.get("observed_uid").toString();
+                        String observedId = documentSnapshot.get("observed_uid").toString();
+                        String uid = mAuth.getUid();
                         Map<String,Object> avaluation = new HashMap<>();
+
                         avaluation.put("value","2");
                         avaluation.put("category",AvaluateInterviewActivity.bookmarkName.getText().toString());
-                        db.collection("users").document(observedId).collection("avaluations").document(model.getQuestion()+uid).set(avaluation);
+
+                        db.collection("users")
+                                .document(observedId)
+                                .collection("avaluations")
+                                .document(model.getQuestion() + uid)
+                                .set(avaluation);
                     }
                 });
             }
         });
+
         holder.bad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     holder.good.setBackgroundResource(R.drawable.good_emoji);
                     holder.medium.setBackgroundResource(R.drawable.medium_emoji);
                     holder.bad.setBackgroundResource(R.drawable.bad_emoji_sel);
+
                     db.collection("trainings").document(Globals.currentInterview).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Globals.avaliatedUserId=documentSnapshot.get("observed_uid").toString();
-                        String observedId=documentSnapshot.get("observed_uid").toString();
-                        String uid=mAuth.getUid();
+                        Globals.avaliatedUserId = documentSnapshot.get("observed_uid").toString();
+                        String observedId = documentSnapshot.get("observed_uid").toString();
+                        String uid = mAuth.getUid();
                         Map<String,Object> avaluation = new HashMap<>();
-                        avaluation.put("value","1");
-                        avaluation.put("category",AvaluateInterviewActivity.bookmarkName.getText().toString());
-                        db.collection("users").document(observedId).collection("avaluations").document(model.getQuestion()+uid).set(avaluation);
+
+                        avaluation.put("value", "1");
+                        avaluation.put("category", AvaluateInterviewActivity.bookmarkName.getText().toString());
+
+                        db.collection("users").document(observedId)
+                                .collection("avaluations")
+                                .document(model.getQuestion() + uid)
+                                .set(avaluation);
                     }
                 });
             }
@@ -108,20 +128,21 @@ public class AvaluationRecycler extends FirestoreRecyclerAdapter<Question, Avalu
     @NonNull
     @Override
     public AvaluationRecycler.BookmarkHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.avaluation_cardview,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.avaluation_cardview, parent,false);
         return new AvaluationRecycler.BookmarkHolder(view);
     }
 
     class BookmarkHolder extends RecyclerView.ViewHolder{
 
-        Button bad,medium,good;
+        Button bad, medium, good;
         TextView questionName;
+
         public BookmarkHolder(@NonNull View itemView) {
             super(itemView);
-            bad=itemView.findViewById(R.id.badIcon);
-            medium=itemView.findViewById(R.id.mediumIcon);
-            good=itemView.findViewById(R.id.goodIcon);
-            questionName=itemView.findViewById(R.id.questionName);
+            bad = itemView.findViewById(R.id.badIcon);
+            medium = itemView.findViewById(R.id.mediumIcon);
+            good = itemView.findViewById(R.id.goodIcon);
+            questionName = itemView.findViewById(R.id.questionName);
         }
     }
 }

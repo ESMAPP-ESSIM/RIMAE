@@ -16,10 +16,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * LoginActivity is the activity that the user will
+ * access to allow him to login and access the rest of the app
+ *
+ */
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
-    private EditText emailInp,pwInp;
+    private EditText emailInp, pwInp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,14 @@ public class LoginActivity extends AppCompatActivity {
         pwInp = findViewById(R.id.pwInp);
     }
 
+    /**
+     *
+     * Authenticates the user before accessing the rest of the app
+     * If the authentication succeeds, the user will access the Main activity
+     * If the authentication fails, the user will be notified and will remain in this activity
+     *
+     * @param view
+     */
     public void login(View view){
         String email = emailInp.getText().toString();
         String pw = pwInp.getText().toString();
@@ -55,6 +68,12 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * Method that allows the user to go back to the BeforeLogin activity
+     *
+     * @param view
+     */
     public void back(View view){
         Intent intent = new Intent(this, BeforeLoginActivity.class);
 

@@ -27,6 +27,13 @@ public class HomeFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     HomePageRecycler adapter;
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -47,12 +54,18 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    /**
+     *
+     */
     @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
     }
 
+    /**
+     *
+     */
     @Override
     public void onStop() {
         super.onStop();

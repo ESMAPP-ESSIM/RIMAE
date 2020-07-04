@@ -15,8 +15,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+/**
+ * SplashActivity is the initial activity of the app
+ * It shows a welcome screen to the user
+ *
+ */
 public class SplashActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,10 @@ public class SplashActivity extends AppCompatActivity {
             }, 2000);
         }
     }
+
+    /**
+     * Used if the user is logged out to navigate to navigate to BeforeLogin activity
+     */
     private void showLogin() {
         Intent intent = new Intent(SplashActivity.this, BeforeLoginActivity.class);
 
@@ -48,6 +56,9 @@ public class SplashActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Used if the user is already logged in to navigate to Main2 Activity
+     */
     private void goToHome(){
         Intent intent = new Intent(SplashActivity.this, Main2Activity.class);
 

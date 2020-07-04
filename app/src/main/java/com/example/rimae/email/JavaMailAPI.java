@@ -15,14 +15,14 @@ import javax.mail.internet.MimeMessage;
 
 public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
 
-    //Add those line in dependencies
-    //implementation files('libs/activation.jar')
-    //implementation files('libs/additionnal.jar')
-    //implementation files('libs/mail.jar')
+    // Add those line in dependencies
+    // implementation files('libs/activation.jar')
+    // implementation files('libs/additionnal.jar')
+    // implementation files('libs/mail.jar')
 
-    //Need INTERNET permission
+    // Need INTERNET permission
 
-    //Variables
+    // Variables
     private Context mContext;
     private Session mSession;
 
@@ -51,20 +51,19 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        //Dismiss progress dialog when message successfully send
+        // Dismiss progress dialog when message successfully send
         mProgressDialog.dismiss();
 
-        //Show success toast
+        // Show success toast
         Toast.makeText(mContext,"Message Sent",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected Void doInBackground(Void... params) {
-        // Creating properties
         Properties props = new Properties();
 
-        // Configuring properties for gmail
-        // If you are not using gmail you may need to change the values
+        // Setting up properties for Gmail
+        // These changes shall be updated if the e-mail provided is not Gmail
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -81,18 +80,18 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
             });
 
         try {
-            //Creating MimeMessage object
+            // Creating MimeMessage object
             MimeMessage mm = new MimeMessage(mSession);
 
-            //Setting sender address
+            // Setting sender address
             mm.setFrom(new InternetAddress(Utils.EMAIL));
-            //Adding receiver
+            // Adding receiver
             mm.addRecipient(Message.RecipientType.TO, new InternetAddress(mEmail));
-            //Adding subject
+            // Adding subject
             mm.setSubject(mSubject);
-            //Adding message
+            // Adding message
             mm.setText(mMessage);
-            //Sending email
+            // Sending email
             Transport.send(mm);
 
 //            BodyPart messageBodyPart = new MimeBodyPart();

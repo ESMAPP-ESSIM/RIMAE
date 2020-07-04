@@ -1,16 +1,17 @@
 package com.example.rimae.models;
 
-public class Bookmark{
+public class Bookmark {
 
     public String id;
     public String name;
     public String color;
 
-    public  Bookmark(){}
+    public  Bookmark() {}
+
     public Bookmark(String id, String name, String color) {
-        this.id=id;
-        this.name=name;
-        this.color=color;
+        this.id = id;
+        this.name = name;
+        this.color = color;
     }
 
     public String getName() {

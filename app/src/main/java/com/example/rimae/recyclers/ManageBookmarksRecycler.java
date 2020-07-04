@@ -32,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class ManageBookmarksRecycler  extends FirestoreRecyclerAdapter<Bookmark,ManageBookmarksRecycler.BookmarkHolder>{
     int index = -1;
     Context context;
+
     public ManageBookmarksRecycler(@NonNull FirestoreRecyclerOptions<Bookmark> options) {
         super(options);
     }
@@ -42,8 +43,10 @@ public class ManageBookmarksRecycler  extends FirestoreRecyclerAdapter<Bookmark,
 
         holder.bookmarkName.setText(model.getName());
         holder.card_view.setCardBackgroundColor(Color.parseColor(model.getColor()));
+
         String colorAlpha = model.getColor();
         String finalColor = "#26" + colorAlpha.substring(1);
+
         holder.linearLayout.getBackground().setColorFilter(Color.parseColor(finalColor), PorterDuff.Mode.SRC_ATOP);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,19 +56,19 @@ public class ManageBookmarksRecycler  extends FirestoreRecyclerAdapter<Bookmark,
             }
         });
 
-        if (index==position){
+        if (index == position){
             holder.manageBtn.setVisibility(View.VISIBLE);
             holder.linearLayout.setVisibility(View.GONE);
 
             holder.editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Globals.currentMarker=snapshot.getId();
-                    Log.d("Marker","Marker atual:" + Globals.currentMarker);
-                    EditMarkerFragment fragment2= new EditMarkerFragment();
-                    FragmentManager manager=((AppCompatActivity) context).getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction=manager.beginTransaction();
-                    fragmentTransaction.replace(R.id.nav_host_fragment,fragment2);
+                    Globals.currentMarker = snapshot.getId();
+                    EditMarkerFragment fragment2 = new EditMarkerFragment();
+                    FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = manager.beginTransaction();
+
+                    fragmentTransaction.replace(R.id.nav_host_fragment, fragment2);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }
@@ -74,10 +77,11 @@ public class ManageBookmarksRecycler  extends FirestoreRecyclerAdapter<Bookmark,
                 @Override
                 public void onClick(View v) {
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
                     db.collection("bookmarks_categories").document(snapshot.getId()).delete();
                 }
             });
-        }else{
+        } else {
             holder.manageBtn.setVisibility(View.GONE);
             holder.linearLayout.setVisibility(View.VISIBLE);
         }
@@ -86,7 +90,7 @@ public class ManageBookmarksRecycler  extends FirestoreRecyclerAdapter<Bookmark,
     @NonNull
     @Override
     public ManageBookmarksRecycler.BookmarkHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.manage_marker_cardview,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.manage_marker_cardview, parent,false);
         return  new ManageBookmarksRecycler.BookmarkHolder(view);
     }
 
@@ -95,17 +99,18 @@ public class ManageBookmarksRecycler  extends FirestoreRecyclerAdapter<Bookmark,
         CardView card_view;
         LinearLayout linearLayout;
         LinearLayout manageBtn;
-        Button editBtn,deleteBtn;
+        Button editBtn, deleteBtn;
 
         public BookmarkHolder(@NonNull View itemView) {
             super(itemView);
+
             bookmarkName = itemView.findViewById(R.id.markerName);
             card_view = itemView.findViewById(R.id.cardView);
             linearLayout = itemView.findViewById(R.id.markerInnerColor);
-            manageBtn=itemView.findViewById(R.id.manageBtn);
-            editBtn=itemView.findViewById(R.id.editBtn);
-            deleteBtn=itemView.findViewById(R.id.removeBtn);
-            context=itemView.getContext();
+            manageBtn = itemView.findViewById(R.id.manageBtn);
+            editBtn = itemView.findViewById(R.id.editBtn);
+            deleteBtn = itemView.findViewById(R.id.removeBtn);
+            context = itemView.getContext();
         }
     }
 }

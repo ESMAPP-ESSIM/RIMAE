@@ -33,6 +33,13 @@ public class ProfileFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String userId = FirebaseAuth.getInstance().getUid();
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -101,6 +108,9 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
+    /**
+     *
+     */
     public void goToMyInterviews(){
         MyInterviewsFragment fragment2 = new MyInterviewsFragment();
         FragmentManager fragmentManager = getFragmentManager();
@@ -111,6 +121,9 @@ public class ProfileFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
+    /**
+     *
+     */
     public void goToSettings(){
         DefinitionsActivity fragment2 = new DefinitionsActivity();
         FragmentManager fragmentManager = getFragmentManager();
@@ -121,6 +134,9 @@ public class ProfileFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
+    /**
+     *
+     */
     public void goToStats(){
         StatsFragment fragment2 = new StatsFragment();
         FragmentManager fragmentManager=getFragmentManager();
@@ -130,6 +146,9 @@ public class ProfileFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
+    /**
+     *
+     */
     public void goToAdmin(){
         MarkersFragment fragment2 = new MarkersFragment();
         FragmentManager fragmentManager=getFragmentManager();
@@ -139,6 +158,9 @@ public class ProfileFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
+    /**
+     *
+     */
     public void logout(){
         FirebaseAuth.getInstance().signOut();
 

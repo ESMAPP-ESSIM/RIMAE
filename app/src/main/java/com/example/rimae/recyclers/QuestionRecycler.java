@@ -27,13 +27,19 @@ public class QuestionRecycler extends FirestoreRecyclerAdapter<Question, Questio
     @Override
     protected void onBindViewHolder(@NonNull final QuestionRecycler.QuestionHolder holder, int position, @NonNull Question model) {
         holder.question.setText(model.getQuestion());
+
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
                 String id = snapshot.getId();
-                db.collection("bookmarks_categories").document(Globals.currentMarker).collection("questions").document(id).delete();
+
+                db.collection("bookmarks_categories")
+                        .document(Globals.currentMarker)
+                        .collection("questions")
+                        .document(id)
+                        .delete();
             }
         });
     }
@@ -41,7 +47,7 @@ public class QuestionRecycler extends FirestoreRecyclerAdapter<Question, Questio
     @NonNull
     @Override
     public QuestionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.question_cardview,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.question_cardview, parent,false);
 
         return  new QuestionHolder(view);
     }
@@ -52,8 +58,9 @@ public class QuestionRecycler extends FirestoreRecyclerAdapter<Question, Questio
 
         public QuestionHolder(@NonNull View itemView) {
             super(itemView);
-            question=itemView.findViewById(R.id.questionText);
-            delete=itemView.findViewById(R.id.delQuestion);
+
+            question = itemView.findViewById(R.id.questionText);
+            delete = itemView.findViewById(R.id.delQuestion);
         }
     }
 }

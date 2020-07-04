@@ -1,15 +1,15 @@
 package com.example.rimae.models;
 
 public class User {
-    String name,profile_pic;
+    String name, profile_pic;
     Long points;
 
-    public User(){}
+    public User() {}
 
     public User(String name, String profile_pic,Long points){
-        this.name=name;
-        this.profile_pic=profile_pic;
-        this.points=points;
+        this.name = name;
+        this.profile_pic = profile_pic;
+        this.points = points;
     }
 
     public String getName() {

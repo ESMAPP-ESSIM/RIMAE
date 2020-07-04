@@ -30,6 +30,10 @@ public class VideoFilteredActivity extends AppCompatActivity {
     public static SimpleExoPlayer player;
     PlayerView videoPlayer;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +68,9 @@ public class VideoFilteredActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     */
     @Override
     protected void onStop() {
         super.onStop();

@@ -49,14 +49,15 @@ public class ListBookmarksRecycler extends FirestoreRecyclerAdapter<VideoBookmar
         }
 
         String colorAlpha = model.getColor();
-        String finalColor ="#26"+colorAlpha.substring(1);
+        String finalColor = "#26" + colorAlpha.substring(1);
         holder.linearLayout.getBackground().setColorFilter(Color.parseColor(finalColor), PorterDuff.Mode.SRC_ATOP);
 
-        // Ao clicar ir para segundo do video
+        // Click will take the user to the corresponding time of the video
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleExoPlayer player= Globals.player;
+                SimpleExoPlayer player = Globals.player;
+
                 player.seekTo(Long.parseLong(model.getTime()));
                 player.setPlayWhenReady(true);
             }

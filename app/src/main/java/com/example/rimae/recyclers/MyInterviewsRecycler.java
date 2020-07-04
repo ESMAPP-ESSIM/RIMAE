@@ -39,7 +39,6 @@ public class MyInterviewsRecycler extends  FirestoreRecyclerAdapter<Training, My
     protected void onBindViewHolder(@NonNull final InterviewHolder holder, int position, @NonNull Training model) {
         final DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
         final String id = snapshot.getId();
-        Log.d("MY","OBSERVERUID: " + snapshot.get("observed_uid").toString() + "OWNER: " + snapshot.get("owner_uid").toString());
 
         if (snapshot.get("observed_uid").toString().equals(mAuth.getUid()) || snapshot.get("owner_uid").toString().equals(mAuth.getUid())) {
             Long time = Long.parseLong(model.getTime());
@@ -53,9 +52,11 @@ public class MyInterviewsRecycler extends  FirestoreRecyclerAdapter<Training, My
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Context ctx= v.getContext();
+                    Context ctx = v.getContext();
+
                     Intent intent = new Intent(ctx, EditInterview.class);
                     intent.putExtra("interviewId",id);
+
                     ctx.startActivity(intent);
                 }
             });

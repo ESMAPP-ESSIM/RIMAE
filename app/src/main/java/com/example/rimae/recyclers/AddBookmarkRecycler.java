@@ -46,14 +46,12 @@ public class AddBookmarkRecycler extends FirestoreRecyclerAdapter<Bookmark, AddB
     @Override
     protected void onBindViewHolder(@NonNull final BookmarkHolder holder, final int position, @NonNull final Bookmark model) {
         DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
-        Log.d("Bookmark", snapshot.get("name").toString());
 
         holder.bookmarkName.setText(model.getName());
         holder.card_view.setCardBackgroundColor(Color.parseColor(model.getColor()));
 
         String colorAlpha = model.getColor();
         String finalColor = "#26" + colorAlpha.substring(1);
-        Log.d("Bookmark",finalColor);
 
         holder.linearLayout.getBackground().setColorFilter(Color.parseColor(finalColor), PorterDuff.Mode.SRC_ATOP);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +71,7 @@ public class AddBookmarkRecycler extends FirestoreRecyclerAdapter<Bookmark, AddB
         holder.bad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               addBookmark(model.getName(),"bad",holder.itemView.getContext(), model.getColor());
+               addBookmark(model.getName(),"bad", holder.itemView.getContext(), model.getColor());
                updateUI(holder.itemView.getContext());
             }
         });
@@ -81,7 +79,7 @@ public class AddBookmarkRecycler extends FirestoreRecyclerAdapter<Bookmark, AddB
         holder.medium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addBookmark(model.getName(),"medium",holder.itemView.getContext(), model.getColor());
+                addBookmark(model.getName(),"medium", holder.itemView.getContext(), model.getColor());
                 updateUI(holder.itemView.getContext());
             }
         });
@@ -89,14 +87,16 @@ public class AddBookmarkRecycler extends FirestoreRecyclerAdapter<Bookmark, AddB
         holder.good.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addBookmark(model.getName(),"good",holder.itemView.getContext(), model.getColor());
+                addBookmark(model.getName(),"good", holder.itemView.getContext(), model.getColor());
                 updateUI(holder.itemView.getContext());
             }
         });
     }
 
     /**
-     * Mudar de fragmento
+     * Updates the fragment to be displayed in the interface
+     *
+     * @param context
      */
     private void updateUI(Context context){
         BookmarksInterview fragment2 = new BookmarksInterview();
@@ -108,15 +108,17 @@ public class AddBookmarkRecycler extends FirestoreRecyclerAdapter<Bookmark, AddB
         fragmentTransaction.commit();
     }
 
-    /*
-    * Função para acrescentar bookmark no video
-    *
-    * Recebe a categoria onde vai acrescentar, o tipo(bom,medio,mau) e o tempo
-    *
-    */
+    /**
+     * Used to add a bookmark to a training video
+     *
+     * @param category represents the bookmark related category
+     * @param type represents the bookmark type (bad, medium or good)
+     * @param mContext
+     * @param color corresponds to the bookmark color
+     */
     private void addBookmark(String category, String type, final Context mContext, String color) {
         long timeInMillisec = VideoActivity.player.getCurrentPosition();
-        String timeMS=String.valueOf(timeInMillisec);
+        String timeMS = String.valueOf(timeInMillisec);
         Map<String,Object> bookmark = new HashMap<>();
 
         bookmark.put("type", type);
@@ -125,7 +127,10 @@ public class AddBookmarkRecycler extends FirestoreRecyclerAdapter<Bookmark, AddB
         bookmark.put("color", color);
         bookmark.put("userId", FirebaseAuth.getInstance().getUid());
 
-        db.collection("trainings").document(Globals.currentInterview).collection("bookmarks").document().set(bookmark).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("trainings")
+                .document(Globals.currentInterview)
+                .collection("bookmarks").document()
+                .set(bookmark).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(mContext,"Bookmark adicionado com sucesso",Toast.LENGTH_SHORT).show();
