@@ -39,20 +39,20 @@
         <LinearLayout
             android:id="@+id/emojis"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:background="#FFF"
-            android:visibility="gone">
+            android:layout_height="50dp"
+            android:layout_marginTop="94dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/marker_card_shape"
+            android:visibility="visible">
 
             <ImageButton
                 android:id="@+id/badIcon"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/bad_emoji"
                 />
             <Space
@@ -61,8 +61,8 @@
                 android:layout_weight="1"/>
             <ImageButton
                 android:id="@+id/mediumIcon"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/medium_emoji"/>
             <Space
@@ -71,8 +71,8 @@
                 android:layout_weight="1"/>
             <ImageButton
                 android:id="@+id/goodIcon"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/good_emoji"/>

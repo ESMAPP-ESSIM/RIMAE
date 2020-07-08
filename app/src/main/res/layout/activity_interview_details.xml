@@ -58,16 +58,17 @@
 
     <TextView
         android:id="@+id/interviewDesc"
-        android:layout_width="327dp"
-        android:layout_height="167dp"
-        android:layout_marginLeft="5dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="50dp"
+        android:maxLines="7"
         android:layout_marginTop="40dp"
         android:fontFamily="@font/montserrat_medium"
         android:text="Simulação realizada ,sobre contexto letivo, no âmbito da UC de Psicologia, onde o aluno realizou uma simulação de uma consulta no decorrer da aula."
         android:textColor="#000"
-        android:textSize="22sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/interviewTitle" />
 

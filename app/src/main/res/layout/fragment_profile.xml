@@ -12,23 +12,24 @@
         android:id="@+id/profilePhoto"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginLeft="47dp"
         android:layout_marginTop="40dp"
+        android:layout_marginRight="130dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/profileName"
-        android:layout_width="170dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="80dp"
+        android:text="joao campos"
         android:fontFamily="@font/montserrat_medium"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@id/profilePhoto"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/profilePhoto"
+        app:layout_constraintBottom_toBottomOf="@id/profilePhoto"/>
 
     <LinearLayout
         android:id="@+id/buttonInterviews"

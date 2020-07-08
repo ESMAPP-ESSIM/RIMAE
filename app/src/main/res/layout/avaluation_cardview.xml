@@ -33,7 +33,7 @@
         <Button
             android:id="@+id/badIcon"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="35dp"
             android:background="@drawable/bad_emoji"
             android:layout_weight="1"/>
         <View
@@ -46,7 +46,7 @@
         <Button
             android:id="@+id/mediumIcon"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="35dp"
             android:background="@drawable/medium_emoji"
             android:layout_weight="1"/>
         <View
@@ -59,7 +59,7 @@
         <Button
             android:id="@+id/goodIcon"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="35dp"
             android:background="@drawable/good_emoji"
             android:layout_weight="1"/>
     </LinearLayout>
