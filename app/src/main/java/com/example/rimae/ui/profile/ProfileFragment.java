@@ -88,14 +88,20 @@ public class ProfileFragment extends Fragment {
                 goToMyInterviews();
             }
         });
-
         LinearLayout buttonManageMarkers= root.findViewById(R.id.buttonAdmin);
-        buttonManageMarkers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToAdmin();
-            }
-        });
+
+        if(FirebaseAuth.getInstance().getUid().equals("LbUsscJDNTZo6R6VcVBOwWZX3Ya2")){
+            buttonManageMarkers.setVisibility(View.VISIBLE);
+            buttonManageMarkers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goToAdmin();
+                }
+            });
+        }else{
+            buttonManageMarkers.setVisibility(View.GONE);
+        }
+
 
         LinearLayout buttonStats=root.findViewById(R.id.buttonStats);
         buttonStats.setOnClickListener(new View.OnClickListener() {

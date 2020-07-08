@@ -115,6 +115,7 @@ public class EditMarkerFragment extends Fragment {
                 if(!newHexCode.isEmpty()){
                     db.collection("bookmarks_categories").document(markerID).update("color",newHexCode);
                 }
+                updateUI();
             }
         });
 

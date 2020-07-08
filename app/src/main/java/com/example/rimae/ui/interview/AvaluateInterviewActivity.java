@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -121,6 +123,8 @@ public class AvaluateInterviewActivity extends AppCompatActivity {
                 }
             });
             finish();
+        }else{
+            Toast.makeText(this, "Por favor, avalie todas as categorias", Toast.LENGTH_SHORT).show();
         }
     }
 

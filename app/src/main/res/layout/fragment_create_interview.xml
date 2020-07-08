@@ -50,6 +50,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/montserrat_medium"
         android:hint="Descrição"
+        android:inputType="textLongMessage"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColor="#7E7E7E"

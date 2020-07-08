@@ -56,7 +56,7 @@ public class RankingFragment extends Fragment {
                     int index=1;
                     for (QueryDocumentSnapshot documentSnapshot:task.getResult()){
                         if (documentSnapshot.getId().equals(mAuth.getUid())){
-                            place.setText(String.valueOf(index));
+                            place.setText(String.valueOf(index)+"º");
                             points.setText(documentSnapshot.get("points").toString());
                             Picasso.get().load(documentSnapshot.get("profile_pic").toString()).fit().centerCrop().into(profilePhoto);
                         }

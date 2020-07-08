@@ -63,7 +63,7 @@ public class StatsFragment extends Fragment {
                                     if(!labels.contains(document.get("category").toString())) {
                                         radarEntries.add(new RadarEntry(Integer.parseInt(task.getResult().get(document.get("category").toString()).toString())));
                                         labels.add(document.get("category").toString());
-                                        radarDataSet = new RadarDataSet(radarEntries, "");
+                                        radarDataSet = new RadarDataSet(radarEntries,"");
                                         radarDataSet.setColor(Color.RED);
                                         radarDataSet.setValueTextColor(Color.BLACK);
                                         radarDataSet.setValueTextSize(18f);
